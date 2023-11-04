@@ -16,7 +16,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -51,6 +50,12 @@
   height:85px;
   padding-top: 5px;
 
+}
+
+@media (max-width: 200px) {
+  li {
+    display: none; /* 요소를 숨김 */
+  }
 }
 .hotSearch >.searchList> h3{
 
@@ -138,9 +143,15 @@
   top: 10px;
   min-height: 51px;
   margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid rgba(0,0,0,.1)
+  border-radius: 30px;
+  border: 1px solid rgba(0,0,0,.1);
+  background-color: grey;
+}
+.carousel__cell > img {
 
+  width: 100%;
+  object-fit: cover;
+  height: 50%;
 }
 
 .carousel__cell:nth-child(1) { transform: rotateY( 40deg) translateZ(500px); }
@@ -155,5 +166,9 @@
 
 .search-results > li{
 
+}
+.on {
+  font-weight: bold;
+  color: red;
 }
 

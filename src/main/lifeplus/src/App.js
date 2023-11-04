@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme/theme';
 import Home from './theme/Home';
@@ -33,7 +33,10 @@ function App() {
                     <div className='effect'>
                     <div className="scene">
                         <div className="carousel" style={{transform: 'translateZ(-489px) rotateY(-20deg)'}}>
-                            <div className="carousel__cell">1</div>
+                            <div className="carousel__cell">
+                                <img src='https://imgnews.pstatic.net/image/020/2023/11/03/0003529132_001_20231103115201068.jpg?type=w800'/>
+                                <h1 style={{borderBottom:'1px solid white',paddingTop:'20px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
+                            </div>
                             <div className="carousel__cell">2</div>
                             <div className="carousel__cell">3</div>
                             <div className="carousel__cell">4</div>
@@ -70,6 +73,36 @@ function HitSearch() {
         'React 상태 관리',
         '리액트 실습',
     ];
+    window.onload = function () {
+        let i = 0;
+
+        function textBold() {
+            console.log("i++" + i);
+
+            let ranks = document.querySelectorAll('.rank');
+
+            // 클래스 제거
+            if (i > 0) {
+                ranks[i-1].classList.remove('on');
+            }
+            if (i >= fakeSearchResults.length) {
+                i = 0;
+            }
+
+            // 클래스 추가
+            ranks[i].classList.add('on');
+
+            i++;
+
+
+
+            // setTimeout 함수 내에서 재귀 호출하여 반복
+            setTimeout(textBold, 500);
+        }
+
+        textBold();
+    }
+
 
 
     return (
@@ -80,7 +113,7 @@ function HitSearch() {
             <h3>실시간 검색어</h3>
             <ul className="search-results">
                 {fakeSearchResults.map((result, index) => (
-                    <li>{index+1}.  {result}</li>
+                    <li className='rank' text="test">{index+1}.  {result}</li>
                 ))}
             </ul>
             </div>

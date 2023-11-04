@@ -27,5 +27,8 @@ export const GlobalStyle = createGlobalStyle`
   .hotSearch{
     color: ${(props) => props.theme.darkColor}
   }
+  // .carousel__cell{
+  //   background-color: ${(props) => props.theme.navColor};
+  // }
  
 `;
