@@ -39,11 +39,17 @@
     transform: rotate(360deg);
   }
 }
+.main{
+  width: 100%;
+  height: 1000px;
+}
+div
+{
+  box-sizing: border-box;
+}
 .logoText {
   margin-left: 30px;
-  color: rgb(167, 255, 120);
 }
-
 .hotSearch{
   display: inline-block;
   width:14.5%;
@@ -52,21 +58,23 @@
 
 }
 
-@media (max-width: 200px) {
-  li {
-    display: none; /* 요소를 숨김 */
+@media (max-width: 800px) {
+  .searchList {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  .hotSearch{
+    width: 100%;
   }
 }
 .hotSearch >.searchList> h3{
-
   font-size: 1.5rem;
   padding-bottom: 20px;
   padding-top: 20px;
   padding-left: 15px;
-  border-bottom: 1px solid grey;
 }
 .hotSearch > .searchList > .search-results > li {
-
   padding-left: 15px;
   margin: 40px 0 40px 0;
   font-size: 1rem;
@@ -84,16 +92,31 @@
 .searchList{
   margin-top: 5px;
   min-height: 51px;
-  height: 698px;
-  border-radius: 4px;
+  height: 830px;
+  box-sizing: border-box;
+
 }
-.weatherComponents > div>img{
+.searchList  img{
+  margin-left: 5px;
+  margin-top: 10px;
+  width: 20%;
+}
+.searchList  h3{
+  font-size: 1.9rem;
+  margin-left: 10px;
+  margin-top: 25px;
+  vertical-align: top;
+  display: inline-block;
+}
+.searchContainer{
+  padding-bottom: 20px;
+
+}
+.weatherComponents > div > img{
   width: 50px;
   height: 50px;
 }
-.weatherComponents > ul{
 
-}
 .weatherComponents li{
   display: flex;
   justify-content: space-between;
@@ -105,25 +128,77 @@
 
 .mainContainer{
   width: 85%;
-  minWidth:580px;
-  height:803px;
+  min-width:580px;
+  height:1000px;
   float:right;
   margin-top: 5px;
   min-height: 51px;
   margin-bottom: 10px;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 .container{
-  padding-bottom: 20px;
+  border-radius: 4px;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+.container > div{
+
+  border-radius: 4px;
 }
 
-.scene {
-  width: 350px;
-  height: 140px;
-  position: absolute;
-  perspective: 1000px;
-  left: 50%;
+.container > div > img:nth-child(1){
+  width: 7%;
+  margin-top: -2%;
+  margin-bottom: -2%;
+}
+.imgCon{
+  border-radius: 4px;
+}
+.effect > div > img:nth-child(1){
+  margin-left: 5px;
+  width: 10%;
+}
+.btnmove{
+  text-align: center;
+  margin-top: 50px;
+}
 
+
+.button-container {
+  text-align: center;
+}
+
+.prev-button, .next-button {
+  padding: 10px 20px; /* 내용 영역의 여백 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 포인터 커서 표시 */
+  margin: 5px; /* 버튼 사이의 여백 */
+  border-radius: 5px; /* 둥근 모서리 */
+  font-size: 16px; /* 텍스트 크기 */
+  transition: background-color 0.3s; /* 배경 색상 변경 애니메이션 */
+
+  /* 버튼 호버 시 배경 색상 변경 */
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+
+/* Optional: 버튼 크기 조정 */
+@media (max-width: 768px) {
+  .prev-button, .next-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+.scene {
+  width: 300px;
+  height: 180px;
+  perspective: 1000px;
+  margin-left: 30%;
+  margin-top: 5%;
+  border-radius: 4px;
 }
 
 .carousel {
@@ -133,26 +208,38 @@
   transform-style: preserve-3d;
 }
 .effect{
-
+  width: 50%;
+  height: 53.5%;
+  border-radius: 4px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  float: left;
 }
+
 .carousel__cell {
   position: absolute;
-  width: 340px;
-  height: 300px;
+  width: 300px;
+  height: 180px;
   left: 10px;
   top: 10px;
   min-height: 51px;
-  margin-bottom: 10px;
-  border-radius: 30px;
-  border: 1px solid rgba(0,0,0,.1);
-  background-color: grey;
+  margin-bottom: 5px;
+
+}
+
+.carousel__cell > h3{
+ text-align: center;
+  font-size: 1.2rem;
+}
+.carousel__cell > span{
+  text-align: center;
 }
 .carousel__cell > img {
-
   width: 100%;
   object-fit: cover;
-  height: 50%;
+  height: 62%;
 }
+
 
 .carousel__cell:nth-child(1) { transform: rotateY( 40deg) translateZ(500px); }
 .carousel__cell:nth-child(2) { transform: rotateY( 80deg) translateZ(500px); }
@@ -164,11 +251,56 @@
 .carousel__cell:nth-child(8) { transform: rotateY(320deg) translateZ(500px); }
 .carousel__cell:nth-child(9) { transform: rotateY(360deg) translateZ(500px); }
 
-.search-results > li{
 
-}
-.on {
-  font-weight: bold;
-  color: red;
+.mainCalendar{
+  display: inline-block;
+  float: right;
+  width: 48.5%;
+  border-radius: 4px;
+  margin-right: 10px;
+  margin-top: 10px;
+  height: 53.5%;
 }
 
+
+
+.mainCalendar > div{
+  width: 100%;
+  height: 11%;
+}
+.mainCalendar > div > img{
+  margin-bottom: 10px;
+  height: 100%;
+}
+/* Footer 스타일 */
+footer {
+  background-color: #333; /* 배경색 지정 */
+  color: #fff; /* 텍스트 색상을 흰색으로 지정 */
+  padding: 20px; /* 안쪽 여백 추가 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+/* 링크 스타일 */
+footer a {
+  color: #03e9f4; /* 링크 색상을 밝은 파란색으로 지정 */
+  text-decoration: none; /* 밑줄 제거 */
+  margin: 10px; /* 각 링크 사이에 간격 추가 */
+  display: block; /* 링크를 블록 요소로 변환하여 간격 적용 */
+}
+
+/* 링크에 마우스를 올렸을 때 스타일 변경 */
+footer a:hover {
+  text-decoration: underline; /* 밑줄 표시 */
+  font-weight: bold; /* 굵게 표시 */
+}
+
+/* 주소 스타일 */
+footer address {
+  font-style: normal; /* 기울임체 스타일 제거 */
+  margin-top: 20px; /* 주소 위에 간격 추가 */
+}
+
+/* 이모지 스타일 */
+footer p::before {
+  content: '👉 '; /* 링크 앞에 이모지 추가 */
+}

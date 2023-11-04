@@ -8,7 +8,7 @@ import "./ImageSilder.css";
 const NextArrow = ({ onClick }) => {
     return (
         <div className='nextArrow' onClick={onClick}>
-            <BsChevronRight />
+            <BsChevronRight color='black' size='3rem'/>
         </div>
     );
 };
@@ -16,7 +16,7 @@ const NextArrow = ({ onClick }) => {
 const PrevArrow = ({ onClick }) => {
     return (
         <div className='prevArrow' onClick={onClick}>
-            <BsChevronLeft />
+            <BsChevronLeft color='black' size='3rem'/>
         </div>
     );
 };

@@ -16,11 +16,8 @@ function Home({ isDarkMode, toggleDarkMode }) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
   font-size: 1.5rem;
-
-
-  
+    
   .logo {
     margin: 0 1rem;
     font-size: 3rem;
@@ -76,6 +73,7 @@ function Home({ isDarkMode, toggleDarkMode }) {
       flex-direction: column;
       width: 100%;
       background-color: black;
+      z-index: 99;
     }
 
     .header__menulist li,
@@ -109,7 +107,7 @@ function Home({ isDarkMode, toggleDarkMode }) {
 
                 {/* Apple 로고 */}
                 <div className="logo">
-                    <FontAwesomeIcon icon={faLeaf} style={{color: "#8bf40b",}}/>
+                    <FontAwesomeIcon icon={faLeaf}/>
                     <span className="logoText">Life+</span>
                 </div>
 

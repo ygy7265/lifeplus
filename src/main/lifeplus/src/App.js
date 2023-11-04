@@ -4,51 +4,90 @@ import { darkTheme, lightTheme } from './theme/theme';
 import Home from './theme/Home';
 import {GlobalStyle} from "./theme/GlobalStyle";
 import './App.css';
+import './neon.css';
 import ImageSlider from "./components/ImageSlider";
-import { IMAGES, VIDEOS, LARGE_IMAGES } from "./data/data";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft,faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {VIDEOS} from "./data/data";
 
 
 function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
+    window.onload = function (){
+        if(isDarkMode){
+            document.querySelector('.prevArrow')
+        }
+    }
 
     const toggleDarkMode = () => {
         setIsDarkMode((prev) => !prev);
     };
+    let [turn, setTurn] = useState(-40);
 
     return (
         <>
             <ThemeProvider theme={isDarkMode ? lightTheme : darkTheme}>
                 <GlobalStyle />
-
                 <Home isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-                <HitSearch/>
-                <div className='mainContainer'>
-
-                <div className='container'>
-                    <ImageSlider images={VIDEOS} />
-                </div>
-                {/*<div className='container'>*/}
-                {/*    <ImageSlider images={IMAGES} slidesToShow={5} />*/}
-                {/*</div>*/}
-                    <div className='effect'>
-                    <div className="scene">
-                        <div className="carousel" style={{transform: 'translateZ(-489px) rotateY(-20deg)'}}>
-                            <div className="carousel__cell">
-                                <img src='https://imgnews.pstatic.net/image/020/2023/11/03/0003529132_001_20231103115201068.jpg?type=w800'/>
-                                <h1 style={{borderBottom:'1px solid white',paddingTop:'20px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
-                            </div>
-                            <div className="carousel__cell">2</div>
-                            <div className="carousel__cell">3</div>
-                            <div className="carousel__cell">4</div>
-                            <div className="carousel__cell">5</div>
-                            <div className="carousel__cell">6</div>
-                            <div class="carousel__cell">7</div>
-                            <div class="carousel__cell">8</div>
-                            <div class="carousel__cell">9</div>
+                <div className='main'>
+                    <HitSearch isDarkMode={isDarkMode}/>
+                    <div className='mainContainer'>
+                    <div className='container'>
+                        <div>
+                            <img src='/images/youtubeText.png'/>
                         </div>
+
+                        <ImageSlider images={VIDEOS} />
                     </div>
+                        <div className='effect'>
+                            <div className='imgCon'>
+                                <img src='/images/news.png'/>
+                            </div>
+                        <div className="scene">
+                            <div className="carousel" style={{transform: `translateZ(-489px) rotateY(${turn}deg)`}}>
+                                <div className="carousel__cell">
+                                    <img src='https://imgnews.pstatic.net/image/020/2023/11/03/0003529132_001_20231103115201068.jpg?type=w800'/>
+                                    <h1 style={{borderBottom:'1px solid white',paddingTop:'5px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
+                                    <h3>동아일보</h3>
+                                </div>
+
+                                <div className="carousel__cell">2</div>
+                                <div className="carousel__cell">3</div>
+                                <div className="carousel__cell">4</div>
+                                <div className="carousel__cell">5</div>
+                                <div className="carousel__cell">6</div>
+                                <div className="carousel__cell">7</div>
+                                <div className="carousel__cell">8</div>
+                                <div className="carousel__cell">9</div>
+
+                            </div>
+
+                        </div>
+                            <div className='btnmove'>
+
+                                <button className='prev-button' onClick={()=>{setTurn(turn+40)}}>Prev</button>
+                                <button className='next-button' onClick={()=>{setTurn(turn-40)}}>Next</button>
+                            </div>
+
+                        </div>
+                        <div className='mainCalendar'>
+                            <div>
+                                <img src='/images/calendar.png'/>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+                <footer>
+                    <a href='https://github.com/ygy7265'>
+                        <p>🚀 Explore my GitHub</p>
+                    </a>
+                    <a href='https://www.notion.so/fccf143f067942fc9aaae60ae90c1bdf?v=daf1525a452d42c9ad5d07103fc67bef'>
+                        <p>📔 Discover my Notion</p>
+                    </a>
+                    <address>📞 Contact me at tel. 070-1234-5678</address>
+                </footer>
+
             </ThemeProvider>
 
         </>
@@ -56,7 +95,7 @@ function App() {
 }
 
 
-function HitSearch() {
+function HitSearch(props) {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -83,21 +122,20 @@ function HitSearch() {
 
             // 클래스 제거
             if (i > 0) {
-                ranks[i-1].classList.remove('on');
+                ranks[i-1].classList.remove('neon');
+
             }
             if (i >= fakeSearchResults.length) {
                 i = 0;
             }
 
             // 클래스 추가
-            ranks[i].classList.add('on');
+            ranks[i].classList.add('neon');
+
 
             i++;
-
-
-
             // setTimeout 함수 내에서 재귀 호출하여 반복
-            setTimeout(textBold, 500);
+            setTimeout(textBold, 2000);
         }
 
         textBold();
@@ -110,12 +148,21 @@ function HitSearch() {
         <div className='hotSearch'>
             <Weather/>
             <div className='searchList'>
-            <h3>실시간 검색어</h3>
-            <ul className="search-results">
-                {fakeSearchResults.map((result, index) => (
-                    <li className='rank' text="test">{index+1}.  {result}</li>
-                ))}
-            </ul>
+                <div className='searchContainer'>
+                    {
+                        props.isDarkMode ? <img src='/images/fire2.png'/> : <img src='/images/fire.png'/>
+                    }
+                    <h3>Search Rank</h3>
+                </div>
+                    {fakeSearchResults.map((result, index) => (
+                            <a href="#" className='rank'>
+                                <h3> {index+1}. {result} </h3>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </a>
+                    ))}
             </div>
         </div>
     );
