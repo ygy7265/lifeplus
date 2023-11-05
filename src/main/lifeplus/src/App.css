@@ -193,12 +193,11 @@ div
   }
 }
 .scene {
-  width: 300px;
-  height: 180px;
-  perspective: 1000px;
-  margin-left: 30%;
-  margin-top: 5%;
+  width: 100%;
+  height: 40vh;
+  perspective: 500px;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .carousel {
@@ -218,8 +217,8 @@ div
 
 .carousel__cell {
   position: absolute;
-  width: 300px;
-  height: 180px;
+  width: 44%;
+  height: 40vh;
   left: 10px;
   top: 10px;
   min-height: 51px;
@@ -254,12 +253,13 @@ div
 
 .mainCalendar{
   display: inline-block;
-  float: right;
+  float: left;
   width: 48.5%;
   border-radius: 4px;
   margin-right: 10px;
   margin-top: 10px;
   height: 53.5%;
+  box-sizing: border-box;
 }
 
 
@@ -304,3 +304,81 @@ footer address {
 footer p::before {
   content: '👉 '; /* 링크 앞에 이모지 추가 */
 }
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* modal창 */
+.modalBody {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  padding: 40px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+}
+
+#modalCloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: transparent;
+  font-size: 20px;
+}
+
+#modalCloseBtn:hover {
+  cursor: pointer;
+
+}
+
+.signup-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  text-align: center;
+  color: black;
+}
+
+.form-group {
+  margin: 10px 0;
+}
+
+label {
+  display: block;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+.signup-button {
+  background: #0074cc;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+

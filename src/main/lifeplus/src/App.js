@@ -9,7 +9,7 @@ import ImageSlider from "./components/ImageSlider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft,faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import {VIDEOS} from "./data/data";
-
+import Calandar from "./components/Calandar";
 
 function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -44,7 +44,7 @@ function App() {
                                 <img src='/images/news.png'/>
                             </div>
                         <div className="scene">
-                            <div className="carousel" style={{transform: `translateZ(-489px) rotateY(${turn}deg)`}}>
+                            <div className="carousel" style={{transform: `translateZ(-800px) rotateY(${turn}deg)`}}>
                                 <div className="carousel__cell">
                                     <img src='https://imgnews.pstatic.net/image/020/2023/11/03/0003529132_001_20231103115201068.jpg?type=w800'/>
                                     <h1 style={{borderBottom:'1px solid white',paddingTop:'5px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
@@ -71,9 +71,8 @@ function App() {
 
                         </div>
                         <div className='mainCalendar'>
-                            <div>
-                                <img src='/images/calendar.png'/>
-                            </div>
+
+                            <Calandar/>
                         </div>
 
                     </div>
@@ -114,10 +113,7 @@ function HitSearch(props) {
     ];
     window.onload = function () {
         let i = 0;
-
         function textBold() {
-            console.log("i++" + i);
-
             let ranks = document.querySelectorAll('.rank');
 
             // 클래스 제거

@@ -4,11 +4,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faTimes,faLeaf } from '@fortawesome/free-solid-svg-icons';
-import '../App.css'
+import '../App.css';
+import Modal from '../components/CloseModal';
 
 function Home({ isDarkMode, toggleDarkMode }) {
   const [isToggled, setIsToggled] = useState(false);
   const [userToggled, setUserToggled] = useState(false);
+  const [signup, setSignup] = useState(false);
+  const [signType, setsignType] = useState('');
   const Header = styled.div`
   width: 100%;
   height: 100px;
@@ -139,15 +142,41 @@ function Home({ isDarkMode, toggleDarkMode }) {
                     >
                         {isDarkMode ? <BsFillSunFill /> : <BsFillMoonFill />}
                     </li>
-                    <li>Login</li>
-                    <li>Register</li>
+                    <li onClick={() => {setSignup(!signup);setsignType('Sign Up')}}>Sign Up</li>
+                    <li onClick={() => {setSignup(!signup);setsignType('Sign In')}}>Sign In</li>
                 </ul>
             </Header>
 
+            {signup && (
+                <Modal closeModal={() => setSignup(!signup)}>
+                    <div>
+                        <SignUp type={signType}/>
+                    </div>
+                </Modal>
+            )}
 
         </>
     );
 
+}
+function SignUp(props) {
+
+    return (
+        <div className="signup-container">
+            <h3 style={{borderBottom: '1px solid black',paddingBottom: '10px'}}>{props.type}</h3>
+            <form>
+                <div className="form-group">
+                    <label htmlFor="id">ID</label>
+                    <input type="text" id="id" name="id" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">PASSWORD</label>
+                    <input type="password" id="password" name="password" />
+                </div>
+                <button type="submit" className="signup-button">{props.type}</button>
+            </form>
+        </div>
+    );
 }
 
 

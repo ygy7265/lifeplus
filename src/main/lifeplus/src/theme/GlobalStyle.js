@@ -8,20 +8,9 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.bgColor};
     color:${(props) => props.theme.textColor}
   }
-  .carousel__cell{
-    color:${(props) => props.theme.textColor}
-  }
   .headerNav{
-  //  background-color: ${(props) => props.theme.navColor};
     background-color: ${(props) => props.theme.navColor2};
     color:${(props) => props.theme.textColor}
-  }
-  .weatherComponents{
-    border: ${(props) => props.theme.boardColor}
-  }
- 
-  .searchList{
-    border: ${(props) => props.theme.boardColor};
   }
   .hotSearch{
     color: ${(props) => props.theme.darkColor}
@@ -30,32 +19,16 @@ export const GlobalStyle = createGlobalStyle`
      background-color: ${(props) => props.theme.neonBackColor};
      color: ${(props) => props.theme.bgColor};
    }
-   .prevArrow{
+   .prevArrow,a,.carousel__cell{
      color: ${(props) => props.theme.textColor};
    }
-   a{
-     color: ${(props) => props.theme.textColor};
-   }
-  .hotSearch >.searchList> h3{
+ 
+  .hotSearch >.searchList > h3 ,.searchContainer,.imgCon{
     border-bottom: ${(props) => props.theme.boardColor};
   }
-  .searchContainer{
-    border-bottom: ${(props) => props.theme.boardColor};
-  }
-  .imgCon{
-    border-bottom: ${(props) => props.theme.boardColor};
-  }
-  .effect{
+  
+  .mainCalendar,.effect,.container > div,.searchList, .logoText,  .weatherComponents{
     border: ${(props) => props.theme.boardColor};
-  }
-  .mainCalendar{
-    border: ${(props) => props.theme.boardColor};
-  }
-  .container > div{
-    border: ${(props) => props.theme.boardColor};
-  }
-  .logoText{
-    color: ${(props) => props.theme.boardColor};
   }
   .neon{
     background: ${(props) => props.theme.neonBackColor};
@@ -66,7 +39,8 @@ export const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme.textColor};
     color: ${(props) => props.theme.bgColor};
   }
-  .mainCalendar > div{
-    border-bottom: ${(props) => props.theme.boardColor};
+  .modalBody{
+    background: ${(props) => props.theme.bgColor};
   }
+ 
 `;
