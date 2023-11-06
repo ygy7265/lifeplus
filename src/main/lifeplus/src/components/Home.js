@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faTimes,faLeaf } from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
-import Modal from '../components/CloseModal';
+import Modal from './CloseModal';
 
 function Home({ isDarkMode, toggleDarkMode }) {
   const [isToggled, setIsToggled] = useState(false);

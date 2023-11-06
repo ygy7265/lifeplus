@@ -1,23 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from './theme/theme';
-import Home from './theme/Home';
+import Home from './components/Home';
 import {GlobalStyle} from "./theme/GlobalStyle";
 import './App.css';
-import './neon.css';
-import ImageSlider from "./components/ImageSlider";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft,faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import './theme/neon.css';
+import ImageSlider from "./components/ImageSilder/ImageSlider";
+import { useGeolocation,dfs_xy_conv} from './components/Weather'
 import {VIDEOS} from "./data/data";
-import Calandar from "./components/Calandar";
-
+import Calandar from "./components/Calandar/Calandar";
+import axios from "axios";
 function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
-    window.onload = function (){
-        if(isDarkMode){
-            document.querySelector('.prevArrow')
-        }
-    }
 
     const toggleDarkMode = () => {
         setIsDarkMode((prev) => !prev);
@@ -36,7 +30,6 @@ function App() {
                         <div>
                             <img src='/images/youtubeText.png'/>
                         </div>
-
                         <ImageSlider images={VIDEOS} />
                     </div>
                         <div className='effect'>
@@ -50,7 +43,6 @@ function App() {
                                     <h1 style={{borderBottom:'1px solid white',paddingTop:'5px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
                                     <h3>동아일보</h3>
                                 </div>
-
                                 <div className="carousel__cell">2</div>
                                 <div className="carousel__cell">3</div>
                                 <div className="carousel__cell">4</div>
@@ -84,7 +76,7 @@ function App() {
                     <a href='https://www.notion.so/fccf143f067942fc9aaae60ae90c1bdf?v=daf1525a452d42c9ad5d07103fc67bef'>
                         <p>📔 Discover my Notion</p>
                     </a>
-                    <address>📞 Contact me at tel. 070-1234-5678</address>
+                    <address>📞 Contact me at tel. 010-4946-7265</address>
                 </footer>
 
             </ThemeProvider>
@@ -165,9 +157,27 @@ function HitSearch(props) {
 }
 
 function Weather(){
+    const { latitude, longitude } = useGeolocation();
+    const [item, setitem] = useState([]);
+
+    var xy = dfs_xy_conv("toXY", latitude, longitude);
+    console.log("aa" + JSON.stringify(xy));
+
     return(
         <div className='weatherComponents'>
+            <div>{xy.x}</div>
+            <div>{xy.y}</div>
+            <button onClick={()=>{
 
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                    .then((data) => {setitem(data.data)})
+                    .catch((error) => {
+                        console.error("Error during axios request:", error)});
+
+            }
+
+
+            }>button</button>
             <div style={{display:'inline-block',fontSize:'1rem',width:'100%',position:'relative'}}>
                 <img src='/images/sun.png'/>
                 <span style={{fontSize:'1.5rem',marginBottom:'20px',position:'absolute',top:'30%',right:'5%'}}>2023/11/02 20:30:23</span>
@@ -183,4 +193,6 @@ function Weather(){
         </div>
     )
 }
+
+
 export default App;
