@@ -51,9 +51,10 @@ div
   margin-left: 30px;
 }
 .hotSearch{
+  position: relative;
   display: inline-block;
   width:14.5%;
-  height:85px;
+  height:1000px;
   padding-top: 5px;
 
 }
@@ -62,12 +63,41 @@ div
   .searchList {
     display: none;
   }
-}
-@media (max-width: 800px) {
-  .hotSearch{
+  .hotSearch {
+    width: 100%;
+    height: 100px;
+  }
+  .mainContainer{
+    float: none;
+  }
+  .effect{
     width: 100%;
   }
+  .mainCalendar{
+    width: 100%;
+  }
+  #timer{
+    font-size:3vw;
+  }
+
 }
+@media (min-width: 800px) {
+
+  .mainContainer{
+    float: right;
+  }
+  .effect{
+    width: 50%;
+  }
+  .mainCalendar{
+    width: 48.5%;
+  }
+  #timer{
+    font-size:1.2vw;
+  }
+}
+
+
 .hotSearch >.searchList> h3{
   font-size: 1.5rem;
   padding-bottom: 20px;
@@ -90,6 +120,7 @@ div
 
 }
 .searchList{
+  position: relative;
   margin-top: 5px;
   min-height: 51px;
   height: 830px;
@@ -101,16 +132,30 @@ div
   margin-top: 10px;
   width: 20%;
 }
-.searchList  h3{
-  font-size: 1.9rem;
+#Searchtitle{
+  position: absolute;
+  font-size: 2vw;
+  right: 0;
   margin-left: 10px;
   margin-top: 25px;
   vertical-align: top;
   display: inline-block;
 }
 .searchContainer{
+  position: relative;
   padding-bottom: 20px;
+}
+#timer{
 
+  marginBottom:20px;
+  position:absolute;
+  top:30%;
+  right:5%;
+}
+.weatheritem > li{
+  font-size:1.2vw;
+  marginBottom:20px;
+  position:absolute;
 }
 .weatherComponents > div > img{
   width: 50px;
@@ -120,8 +165,6 @@ div
 .weatherComponents li{
   display: flex;
   justify-content: space-between;
-  font-size: 1rem;
-  padding-top: 15px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -130,7 +173,6 @@ div
   width: 85%;
   min-width:580px;
   height:1000px;
-  float:right;
   margin-top: 5px;
   min-height: 51px;
   margin-bottom: 10px;
@@ -160,8 +202,10 @@ div
   width: 10%;
 }
 .btnmove{
-  text-align: center;
-  margin-top: 50px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
 
 
@@ -207,7 +251,8 @@ div
   transform-style: preserve-3d;
 }
 .effect{
-  width: 50%;
+  position: relative;
+
   height: 53.5%;
   border-radius: 4px;
   margin-top: 10px;
@@ -217,18 +262,22 @@ div
 
 .carousel__cell {
   position: absolute;
-  width: 44%;
+  width: 31%;
   height: 40vh;
-  left: 10px;
+  left: 40%;
   top: 10px;
   min-height: 51px;
   margin-bottom: 5px;
 
 }
-
+.carousel__cell > h1{
+  text-align: center;
+  font-size: 1.1vw;
+}
 .carousel__cell > h3{
- text-align: center;
-  font-size: 1.2rem;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 1vw;
 }
 .carousel__cell > span{
   text-align: center;
@@ -254,7 +303,6 @@ div
 .mainCalendar{
   display: inline-block;
   float: left;
-  width: 48.5%;
   border-radius: 4px;
   margin-right: 10px;
   margin-top: 10px;
@@ -381,4 +429,5 @@ input[type="password"] {
   font-size: 16px;
   cursor: pointer;
 }
+
 

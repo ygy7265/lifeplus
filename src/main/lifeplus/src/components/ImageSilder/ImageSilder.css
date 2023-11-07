@@ -1,0 +1,30 @@
+.slide {
+    transform: scale(0.7);
+    transition: transform 300ms;
+    opacity: 0.5;
+}
+
+.slideWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.prevArrow {
+    position: absolute;
+    top: 40%;
+    left: 10px;
+    z-index: 100;
+    cursor: pointer;
+    color: red;
+    font-size: 2rem;
+}
+
+.nextArrow {
+    position: absolute;
+    top: 40%;
+    right: 60px;
+    z-index: 100;
+    cursor: pointer;
+    color: red;
+    font-size: 2rem;
+}
