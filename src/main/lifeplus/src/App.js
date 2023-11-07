@@ -18,7 +18,7 @@ function App() {
     const toggleDarkMode = () => {
         setIsDarkMode((prev) => !prev);
     };
-    let [turn, setTurn] = useState(-40);
+
 
     return (
         <>
@@ -34,34 +34,7 @@ function App() {
                         </div>
                         <ImageSlider images={VIDEOS} />
                     </div>
-                        <div className='effect'>
-                            <div className='imgCon'>
-                                <img src='/images/news.png'/>
-                            </div>
-                        <div className="scene">
-                            <div className="carousel" style={{transform: `translateZ(-800px) rotateY(${turn}deg)`}}>
-                                <div className="carousel__cell">
-                                    <img src='https://imgnews.pstatic.net/image/020/2023/11/03/0003529132_001_20231103115201068.jpg?type=w800'/>
-                                    <h1 className="newinfo" style={{borderBottom:'1px solid white',paddingTop:'5px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
-                                    <h3 className="newinfo">동아일보</h3>
-                                </div>
-                                <div className="carousel__cell">2</div>
-                                <div className="carousel__cell">3</div>
-                                <div className="carousel__cell">4</div>
-                                <div className="carousel__cell">5</div>
-                                <div className="carousel__cell">6</div>
-                                <div className="carousel__cell">7</div>
-                                <div className="carousel__cell">8</div>
-                                <div className="carousel__cell">9</div>
-
-                            </div>
-
-                        </div>
-                            <div className='btnmove'>
-                                <button className='prev-button' onClick={()=>{setTurn(turn+40)}}>Prev</button>
-                                <button className='next-button' onClick={()=>{setTurn(turn-40)}}>Next</button>
-                            </div>
-                        </div>
+                        <News/>
                         <div className='mainCalendar'>
                             <Calandar/>
                         </div>
@@ -83,7 +56,50 @@ function App() {
         </>
     );
 }
+function News(){
+    let [turn, setTurn] = useState(-40);
+    let [newsImage,setNewsImage] = useState({});
+    useEffect(() => {
 
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/news');
+                const data = response.data;
+
+                for (const item of data) {
+                    console.log("test="+item);
+                }
+            } catch (error) {
+                console.error("Error during axios request:", error);
+            }
+        };
+
+        fetchData();
+
+    });
+    return(
+        <div className='effect'>
+
+            <div className='imgCon'>
+                <img src='/images/news.png'/>
+            </div>
+            <div className="scene">
+                <div className="carousel" style={{transform: `translateZ(-800px) rotateY(${turn}deg)`}}>
+                    <div className="carousel__cell">
+                        <img src='https://imgnews.pstatic.net/image/020/2023/11/03/0003529132_001_20231103115201068.jpg?type=w800'/>
+                        <h1 className="newinfo" style={{borderBottom:'1px solid white',paddingTop:'5px'}}>[단독]김포시, ‘서울시 자치구’로 편입되면 지방세수 최소 2587억 원 깎여</h1>
+                        <h3 className="newinfo">동아일보</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div className='btnmove'>
+                <button className='prev-button' onClick={()=>{setTurn(turn+40)}}>Prev</button>
+                <button className='next-button' onClick={()=>{setTurn(turn-40)}}>Next</button>
+            </div>
+        </div>
+    )
+}
 
 function HitSearch(props) {
     const [searchQuery, setSearchQuery] = useState('');

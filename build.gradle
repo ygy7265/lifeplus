@@ -25,16 +25,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-<<<<<<< HEAD
- //   implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
- //   implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-//    testImplementation 'org.springframework.security:spring-security-test'
-   implementation 'org.springframework.boot:spring-boot-starter-web'
+ //implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+    // implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+//  testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20230227'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.jsoup:jsoup:1.15.3'
-=======
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
     configurations {
@@ -46,16 +46,6 @@ dependencies {
             exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         }
     }
-
-    // implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
-    // implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation group: 'org.json', name: 'json', version: '20090211'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  //  testImplementation 'org.springframework.security:spring-security-test'
->>>>>>> 9d25e815b3b7f077913c96d768e2187da70454b4
 }
 
 tasks.named('test') {
