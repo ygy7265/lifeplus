@@ -15,7 +15,7 @@ a{
 .neon{
     background: rgb(3, 233, 244, 0.9);
     font-weight: bold;
-    -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
+
 }
 
 a span{

@@ -4,3 +4,6 @@
 .fc-scrollgrid-sync-table{
     height: 410px;
 }
+. fc-scroller-liquid-absolute{
+    position: unset;
+}

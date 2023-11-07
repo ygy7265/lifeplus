@@ -47,7 +47,7 @@ function Calendar({ onDateClick }) {
                 }
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
-                height={"40vh"}
+                height={"55vh"}
                 events={data}
             />
         </div>

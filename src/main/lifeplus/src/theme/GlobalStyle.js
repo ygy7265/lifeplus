@@ -42,5 +42,8 @@ export const GlobalStyle = createGlobalStyle`
   .modalBody{
     background: ${(props) => props.theme.bgColor};
   }
+  .newinfo{
+    color: ${(props) => props.theme.bgColor};
+  }
  
 `;

@@ -25,8 +25,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-  //  implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
-   // implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+        all {
+            //logback과의 충돌 방지
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+    }
+
+    // implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+    // implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'org.json', name: 'json', version: '20090211'
     compileOnly 'org.projectlombok:lombok'
