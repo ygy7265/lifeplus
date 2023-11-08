@@ -1,6 +1,6 @@
 package com.example.lifeplus;
 
-public class SerchTests {
+public class CrawlingTests {
 
 
 }

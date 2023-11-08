@@ -102,22 +102,30 @@ function News(){
 }
 
 function HitSearch(props) {
+    const [fakeSearchResults,setSearchResult] = useState([]);
+    useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/search');
+
+            const data = response.data;
+
+
+            console.log("item:",JSON.stringify(data));
+            setSearchResult(data);
+
+        } catch (error) {
+            console.error("Error during axios request:", error);
+        }
+    };
+
+    fetchData();
+
+    }, []);
+
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
-    // 가상의 검색 결과
-    const fakeSearchResults = [
-        'React 실시간 검색어 1',
-        'React 실시간 검색어 2',
-        'React 컴포넌트',
-        'React 상태 관리',
-        '리액트 실습',
-        'React 실시간 검색어 1',
-        'React 실시간 검색어 2',
-        'React 컴포넌트',
-        'React 상태 관리',
-        '리액트 실습',
-    ];
     window.onload = function () {
         let i = 0;
         function textBold() {
@@ -159,7 +167,7 @@ function HitSearch(props) {
                 </div>
                     {fakeSearchResults.map((result, index) => (
                             <a href="#" className='rank'>
-                                <h3> {index+1}. {result} </h3>
+                                <h3> {index+1}. {result.title} </h3>
                                 <span></span>
                                 <span></span>
                                 <span></span>
@@ -220,7 +228,7 @@ function Weather(){
 
         const fetchData = async () => {
             try {
-                const response = await axios.get('/weatherapi', {
+                const response = await axios.get('/weatherAPI', {
                     params: {
                         x: xy.x,
                         y: xy.y,

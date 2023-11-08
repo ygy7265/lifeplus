@@ -1,27 +1,19 @@
-package com.example.lifeplus;
+package com.example.lifeplus.service;
 
-import lombok.extern.log4j.Log4j2;
+import com.example.lifeplus.dto.WeatherDTO;
 import org.json.JSONObject;
 import org.json.XML;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+@Service
+public class WeatherService {
 
-@Log4j2
-@RestController
-public class api {
-
-    @GetMapping("/weatherapi")
-    public String callApiWithJson(@ModelAttribute weatherDTO wDTO) {
-        log.info("x"+wDTO.getX());
-        log.info("y"+wDTO.getY());
-        log.info("date"+wDTO.getDate());
+    public String WeatherData(WeatherDTO wDTO){
         StringBuffer result = new StringBuffer();
         String jsonPrintString = null;
         try {
@@ -51,6 +43,4 @@ public class api {
 
         return jsonPrintString;
     }
-
-
 }
