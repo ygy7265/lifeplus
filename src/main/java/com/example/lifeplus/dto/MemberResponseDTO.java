@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberResponseDTO {
 
-    private String userid;
-    private String username;
+    private String email;
+    private String name;
 
     public static MemberResponseDTO of(Member member){
         return MemberResponseDTO.builder()
-                .userid(member.getEmail())
-                .username(member.getUsername())
+                .email(member.getEmail())
+                .name(member.getName())
                 .build();
     }
 }

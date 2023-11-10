@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const lightTheme = {
     bgColor: 'white',
     darkColor:'black',

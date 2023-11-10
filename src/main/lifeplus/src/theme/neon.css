@@ -23,8 +23,10 @@ a span{
     display: block;
 }
 .rank > h3{
-    font-size: 1rem;
-    vertical-align: center;
+    position: absolute;
+    font-size: 1.2rem;
+    left: 5%;
+    top: 40%;
 
 }
 .neon span:nth-child(1){

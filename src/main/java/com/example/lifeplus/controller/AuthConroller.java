@@ -2,15 +2,17 @@ package com.example.lifeplus.controller;
 
 import com.example.lifeplus.dto.MemberRequestDTO;
 import com.example.lifeplus.dto.MemberResponseDTO;
-import com.example.lifeplus.dto.TokenDto;
+import com.example.lifeplus.dto.TokenDTO;
 import com.example.lifeplus.service.AutnService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Log4j2
 @RequiredArgsConstructor
 public class AuthConroller {
 
@@ -22,7 +24,9 @@ public class AuthConroller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDTO requestDTO){
+    public ResponseEntity<TokenDTO> login(@RequestBody MemberRequestDTO requestDTO){
+        log.info(requestDTO.getEmail());
+        log.info(requestDTO.getPassword());
         return ResponseEntity.ok(service.login(requestDTO));
     }
 }

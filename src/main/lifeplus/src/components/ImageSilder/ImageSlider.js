@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from "react";
 // 1.
 import Slider from "react-slick";

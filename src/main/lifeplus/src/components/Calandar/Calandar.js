@@ -5,7 +5,6 @@ export default class DashBoard extends Component {
     constructor(props) {
         super(props);
     }
-
     dateClick = (info) => {
         alert(`클릭한 날짜: ${info.dateStr}`);
         // 여기에서 이벤트 정보를 처리하는 로직을 추가하세요

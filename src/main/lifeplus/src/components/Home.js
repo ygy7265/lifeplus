@@ -1,11 +1,13 @@
 
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faTimes,faLeaf } from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
 import Modal from './CloseModal';
+import {forEach} from "react-bootstrap/ElementChildren";
+import axios from "axios";
 
 function Home({ isDarkMode, toggleDarkMode }) {
   const [isToggled, setIsToggled] = useState(false);
@@ -160,24 +162,109 @@ function Home({ isDarkMode, toggleDarkMode }) {
 
 }
 function SignUp(props) {
+    useEffect(() => {
+        var btnsignup = document.querySelector('.signup-button');
+        var btnlogin = document.querySelector('.signup-login');
 
-    return (
-        <div className="signup-container">
-            <h3 style={{borderBottom: '1px solid black',paddingBottom: '10px'}}>{props.type}</h3>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="id">ID</label>
-                    <input type="text" id="id" name="id" />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">PASSWORD</label>
-                    <input type="password" id="password" name="password" />
-                </div>
-                <button type="submit" className="signup-button">{props.type}</button>
-            </form>
-        </div>
-    );
-}
+        btnsignup.addEventListener('click', handleClick);
+        btnlogin.addEventListener('click', loginClick);
 
 
+
+        return () => {
+            btnsignup.removeEventListener('click', handleClick);
+            btnsignup.removeEventListener('click', loginClick);
+        };
+    }, []);
+    const loginClick = (e) => {
+        e.preventDefault();
+        var inputFields = document.querySelectorAll('.signupinput');
+
+        var signupForm = document.getElementById('signForm');
+
+        var allInputsFilled = Array.from(inputFields).every(function (input) {
+            return input.value.trim() !== '';
+        });
+
+        if (allInputsFilled) {
+            axios.post("/signup", signupForm, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true
+            })
+                .then((res) => {
+                    // 성공 시 처리
+                    alert('회원가입이 완료되었습니다.');
+                    return window.location.replace("/");
+                })
+                .catch((error) => {
+                    // 실패 시 처리
+                    console.log(error);
+                    alert("회원가입을 실패했습니다. 다시 한번 확인해 주세요.");
+                });
+        } else {
+            alert('모든 입력 필드에 값을 입력하세요.');
+        }
+
+    };
+
+    const handleClick = (e) => {
+      e.preventDefault();
+        var inputFields = document.querySelectorAll('.signupinput');
+
+        var signupForm = document.getElementById('signForm');
+
+        var allInputsFilled = Array.from(inputFields).every(function (input) {
+            return input.value.trim() !== '';
+        });
+
+        if (allInputsFilled) {
+            axios.post("/signup", signupForm, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true
+            })
+                .then((res) => {
+                    // 성공 시 처리
+                    alert('회원가입이 완료되었습니다.');
+                    return window.location.replace("/");
+                })
+                .catch((error) => {
+                    // 실패 시 처리
+                    console.log(error);
+                    alert("회원가입을 실패했습니다. 다시 한번 확인해 주세요.");
+                });
+        } else {
+            alert('모든 입력 필드에 값을 입력하세요.');
+        }
+
+    };
+        return (
+            <div className="signup-container">
+                <h3 style={{borderBottom: '1px solid black', paddingBottom: '10px'}}>{props.type}</h3>
+                <form id='signForm'>
+                    <div className="form-group">
+                        <label htmlFor="id">Email</label>
+                        <input type="text" className='signupinput' id="email" name="email"/>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" className='signupinput' id="password" name="password"/>
+                    </div>
+                    {
+                        props.type === 'Sign Up' ?
+                            <div className="form-group">
+                                <label htmlFor="password">Name</label>
+                                <input type="text" className='signupinput' id="name" name="name"/>
+                            </div>
+
+                            : null
+                    }
+                    <button type="submit" className={props.type === 'Sign Up' ? 'signup-button' : 'signup-login'}>
+                        {props.type}
+                    </button>
+
+
+                </form>
+            </div>
+        );
+    }
 export default Home;

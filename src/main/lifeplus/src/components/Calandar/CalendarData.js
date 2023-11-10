@@ -15,21 +15,17 @@ function Calendar({ onDateClick }) {
                 { title: '판매건수 : 25건', date: '2023-11-03' },
                 { title: '판매건수 : 23건', date: '2023-05-13' }
             ];
-            setData(aix); // 상태를 업데이트하여 데이터를 설정
+            setData(aix);
         };
 
-        // 데이터 가져오는 비동기 작업을 수행
         fetchData();
 
-    }, []); // 빈 배열을 두 번째 매개변수로 전달하여 이펙트 한 번만 실행
-    console.log(data);
+    }, []);
 
     function handleDateClick(info) {
         alert(`클릭한 날짜: ${info.dateStr}`);
     }
     function handleEventClick(info) {
-        // 클릭한 이벤트에 대한 팝업 창을 띄우는 로직을 추가
-        // info.event 객체를 사용하여 이벤트의 정보에 접근할 수 있습니다
         alert(`클릭한 이벤트: ${info.event.title}`);
     }
     return (
@@ -47,7 +43,7 @@ function Calendar({ onDateClick }) {
                 }
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
-                height={"55vh"}
+                height={"50vh"}
                 events={data}
             />
         </div>

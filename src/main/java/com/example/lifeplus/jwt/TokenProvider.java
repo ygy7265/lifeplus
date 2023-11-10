@@ -1,8 +1,7 @@
 package com.example.lifeplus.jwt;
 
-import com.example.lifeplus.dto.TokenDto;
+import com.example.lifeplus.dto.TokenDTO;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -37,7 +35,7 @@ public class TokenProvider {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
     //토큰생성
-    public TokenDto generateTokenDto(Authentication authentication){
+    public TokenDTO generateTokenDto(Authentication authentication){
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -55,7 +53,7 @@ public class TokenProvider {
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
 
-        return TokenDto.builder()
+        return TokenDTO.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .tokenExpiresIn(tokenExpiresIn.getTime())

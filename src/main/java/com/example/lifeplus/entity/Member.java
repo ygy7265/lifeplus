@@ -6,33 +6,27 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
-@Builder
 @NoArgsConstructor
 @Document("member")
 public class Member {
 
-    @Id
-    private Long id;
     private String email;
     private String password;
-    private String username;
-    private String ipAddress;
+    private String name;
     private Autnority autnority;
 
     public void setUsername(String username){
-        this.username = username;
+        this.name = name;
     }
     public void setPassword(String password){
         this.password = password;
     }
 
     @Builder
-    public Member(Long id, String email,String password,String username,String ipAddress,Autnority autnority){
-        this.id = id;
+    public Member(Long id, String email,String password,String name,Autnority autnority){
         this.email = email;
         this.password = password;
-        this.username = username;
-        this.ipAddress = ipAddress;
+        this.name = name;
         this.autnority = autnority;
     }
 

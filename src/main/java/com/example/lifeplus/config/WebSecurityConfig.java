@@ -42,16 +42,14 @@ public class WebSecurityConfig {
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 //form login 비활성(토큰방식일때는 안씀)
                 .formLogin(FormLoginConfigurer::disable)
-
-
+                
                 .exceptionHandling(exceptionHandling -> {
                     exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint);
                     exceptionHandling.accessDeniedHandler(jwtAccessDeniedHandler);
                 })
 
                 .authorizeHttpRequests(authorizeHttpRequest -> authorizeHttpRequest
-                        .requestMatchers("/").permitAll()//인가설정
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/","/**").permitAll()//인가설정
                         .anyRequest().authenticated()
                 )
                 //tokenProvider 적용
