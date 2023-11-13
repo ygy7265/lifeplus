@@ -3,6 +3,8 @@ package com.example.lifeplus.jwt;
 import com.example.lifeplus.dto.TokenDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.Data;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +27,9 @@ public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer";
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 5000 * 60 * 30;
     private String issuer;
+    @Getter
     private SecretKey secretKey;
 
 
@@ -35,30 +39,47 @@ public class TokenProvider {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
     //토큰생성
-    public TokenDTO generateTokenDto(Authentication authentication){
+    public TokenDTO generateTokenDto(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = new Date().getTime();
 
-        Date tokenExpiresIn = new Date(now+ACCESS_TOKEN_EXPIRE_TIME);
+        // Access Token 만료 시간 설정
+        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
 
-        System.out.println(tokenExpiresIn);
+        // Refresh Token 만료 시간 설정
+        Date refreshTokenExpiresIn = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
 
+        System.out.println(accessTokenExpiresIn);
+
+        // Access Token 생성
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY,authorities)
-                .setExpiration(tokenExpiresIn)
+                .claim(AUTHORITIES_KEY, authorities)
+                .setExpiration(accessTokenExpiresIn)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
+                .setExpiration(refreshTokenExpiresIn)
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
 
         return TokenDTO.builder()
                 .grantType(BEARER_TYPE)
+                .email(authentication.getName())
                 .accessToken(accessToken)
-                .tokenExpiresIn(tokenExpiresIn.getTime())
+                .refreshToken(refreshToken)
+                .tokenExpiresIn(accessTokenExpiresIn.getTime())
+                .refreshTokenExpiresIn(refreshTokenExpiresIn.getTime())
                 .build();
     }
+
 
     public Authentication getAuthentication(String accessToken){
         Claims claims = parseClaims(accessToken);

@@ -6,14 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUser, faTimes,faLeaf } from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
 import Modal from './CloseModal';
-import {forEach} from "react-bootstrap/ElementChildren";
 import axios from "axios";
+import AuthComponent from "./AuthComponent";
+import {useDispatch, useSelector} from "react-redux";
+import {changeEmail} from "../store";
 
-function Home({ isDarkMode, toggleDarkMode }) {
+function Home({ isDarkMode, toggleDarkMode}) {
   const [isToggled, setIsToggled] = useState(false);
   const [userToggled, setUserToggled] = useState(false);
   const [signup, setSignup] = useState(false);
   const [signType, setsignType] = useState('');
+  let tokenEmail = useSelector(state => {return state.userEmail.userEmail});
   const Header = styled.div`
   width: 100%;
   height: 100px;
@@ -96,6 +99,12 @@ function Home({ isDarkMode, toggleDarkMode }) {
     }
   }     
 `;
+  function logOut(){
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('email');
+      window.location.reload();
+  }
     return (
 
         <>
@@ -144,8 +153,19 @@ function Home({ isDarkMode, toggleDarkMode }) {
                     >
                         {isDarkMode ? <BsFillSunFill /> : <BsFillMoonFill />}
                     </li>
-                    <li onClick={() => {setSignup(!signup);setsignType('Sign Up')}}>Sign Up</li>
-                    <li onClick={() => {setSignup(!signup);setsignType('Sign In')}}>Sign In</li>
+                    {
+                        tokenEmail == null ?
+                            <>
+                            <li onClick={() => {setSignup(!signup);setsignType('Sign Up')}}>Sign Up</li>
+                            <li onClick={() => {setSignup(!signup);setsignType('Sign In')}}>Sign In</li>
+                            </>
+                            :
+                            <>
+                            <li onClick={logOut}>Logout</li>
+                            <li>MyPage</li>
+
+                            </>
+                    }
                 </ul>
             </Header>
 
@@ -161,110 +181,100 @@ function Home({ isDarkMode, toggleDarkMode }) {
     );
 
 }
+
+
 function SignUp(props) {
-    useEffect(() => {
-        var btnsignup = document.querySelector('.signup-button');
-        var btnlogin = document.querySelector('.signup-login');
-
-        btnsignup.addEventListener('click', handleClick);
-        btnlogin.addEventListener('click', loginClick);
-
-
-
-        return () => {
-            btnsignup.removeEventListener('click', handleClick);
-            btnsignup.removeEventListener('click', loginClick);
-        };
-    }, []);
-    const loginClick = (e) => {
-        e.preventDefault();
-        var inputFields = document.querySelectorAll('.signupinput');
-
-        var signupForm = document.getElementById('signForm');
-
-        var allInputsFilled = Array.from(inputFields).every(function (input) {
-            return input.value.trim() !== '';
-        });
-
-        if (allInputsFilled) {
-            axios.post("/signup", signupForm, {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true
-            })
-                .then((res) => {
-                    // 성공 시 처리
-                    alert('회원가입이 완료되었습니다.');
-                    return window.location.replace("/");
-                })
-                .catch((error) => {
-                    // 실패 시 처리
-                    console.log(error);
-                    alert("회원가입을 실패했습니다. 다시 한번 확인해 주세요.");
-                });
-        } else {
-            alert('모든 입력 필드에 값을 입력하세요.');
-        }
-
-    };
 
     const handleClick = (e) => {
-      e.preventDefault();
-        var inputFields = document.querySelectorAll('.signupinput');
-
+        e.preventDefault();
         var signupForm = document.getElementById('signForm');
-
+        var inputFields = document.querySelectorAll('.signupinput');
         var allInputsFilled = Array.from(inputFields).every(function (input) {
             return input.value.trim() !== '';
         });
 
         if (allInputsFilled) {
-            axios.post("/signup", signupForm, {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true
-            })
-                .then((res) => {
-                    // 성공 시 처리
-                    alert('회원가입이 완료되었습니다.');
-                    return window.location.replace("/");
+            if (props.type === 'Sign Up') {
+                axios.post("/signup", signupForm, {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true
                 })
-                .catch((error) => {
-                    // 실패 시 처리
-                    console.log(error);
-                    alert("회원가입을 실패했습니다. 다시 한번 확인해 주세요.");
-                });
+                    .then((res) => {
+                        // 성공 시 처리
+                        alert('회원가입이 완료되었습니다.');
+                        return window.location.replace("/");
+                    })
+                    .catch((error) => {
+                        // 실패 시 처리
+                        console.log(error);
+                        alert("회원가입을 실패했습니다. 다시 한번 확인해 주세요.");
+                    });
+            } else {
+                axios.post("/login", signupForm, {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true
+                })
+                    .then((res) => {
+                        const newAccessToken = res.data.accessToken;
+                        const useremail = res.data.email;
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + newAccessToken;
+
+                        localStorage.setItem('accessToken', newAccessToken);
+                        localStorage.setItem('email', res.data.email);
+                        localStorage.setItem('tokenExpiresIn', String(Date.now() + 3600000));
+                        // 성공 시 처리
+                        alert(`${useremail}님 환영합니다.`);
+                        return window.location.replace("/");
+                    })
+                    .catch((error) => {
+                        // 실패 시 처리
+                        console.log(error);
+                        alert("로그인 실패했습니다. 다시 한번 확인해 주세요.");
+                    });
+            }
         } else {
             alert('모든 입력 필드에 값을 입력하세요.');
         }
-
     };
-        return (
-            <div className="signup-container">
-                <h3 style={{borderBottom: '1px solid black', paddingBottom: '10px'}}>{props.type}</h3>
-                <form id='signForm'>
+        useEffect(() => {
+            var btnSignUp = document.querySelector('.signUp');
+            btnSignUp.addEventListener('click', handleClick);
+
+            return () => {
+                btnSignUp.removeEventListener('click', handleClick);
+            };
+        }, [handleClick]);
+
+        let tokenEmail = useSelector(state => {return state.userEmail.userEmail});
+
+        let dispatch = useDispatch();
+
+
+
+
+    return (
+        <div className="signup-container">
+            <h3 style={{ borderBottom: '1px solid black', paddingBottom: '10px' }}>{props.type}</h3>
+            <form id='signForm'>
+                <div className="form-group">
+                    <label htmlFor="id">Email</label>
+                    <input type="text"  className='signupinput' name="email" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password"  className='signupinput' name="password" />
+                </div>
+                { props.type === 'Sign Up' ? (
                     <div className="form-group">
-                        <label htmlFor="id">Email</label>
-                        <input type="text" className='signupinput' id="email" name="email"/>
+                        <label htmlFor="text">Name</label>
+                        <input type="text" className='signupinput' id="name" name="name" />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className='signupinput' id="password" name="password"/>
-                    </div>
-                    {
-                        props.type === 'Sign Up' ?
-                            <div className="form-group">
-                                <label htmlFor="password">Name</label>
-                                <input type="text" className='signupinput' id="name" name="name"/>
-                            </div>
-
-                            : null
-                    }
-                    <button type="submit" className={props.type === 'Sign Up' ? 'signup-button' : 'signup-login'}>
-                        {props.type}
-                    </button>
-
-
-                </form>
-            </div>
-        );
-    }
+                ) : null}
+                <button type="submit" className='signup-button signUp' >
+                    {props.type}
+                </button>
+            </form>
+        </div>
+    );
+}
 export default Home;

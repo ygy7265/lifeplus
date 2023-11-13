@@ -3,6 +3,7 @@ package com.example.lifeplus.config;
 import com.example.lifeplus.jwt.JwtAccessDeniedHandler;
 import com.example.lifeplus.jwt.JwtAuthenticationEntryPoint;
 import com.example.lifeplus.jwt.TokenProvider;
+import com.example.lifeplus.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebSecurityConfig {
     private final TokenProvider tokenProvider;
+    private final CustomUserDetailsService customUserDetailsService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
@@ -53,7 +55,7 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 //tokenProvider 적용
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .apply(new JwtSecurityConfig(tokenProvider,customUserDetailsService));
 
         return http.build();
     }

@@ -16,6 +16,7 @@ export default class DashBoard extends Component {
                 <div style={{ margin: 15, display: 'grid', gridTemplateColumns: "2fr 1fr" }}>
                     <Calendar /> {/* Calendar 컴포넌트를 렌더링합니다. */}
                 </div>
+
             </>
         );
     }
