@@ -15,8 +15,11 @@ public class CalendarController {
 
     private final CalendarService calendarService;
     @PostMapping("/addCalendar")
-    public void addCalendar(@RequestBody CalendarDTO calendarDTO){
-        calendarService.addCalendar(calendarDTO);
+    public List<CalendarDTO> addCalendar(@RequestBody CalendarDTO calendarDTO){
+        List<CalendarDTO> responsDTO = calendarService.addCalendar(calendarDTO);
+
+        log.info(responsDTO);
+        return responsDTO;
     }
     @DeleteMapping("/deleteCalendar/{id}")
     public void deleteCalendar(@PathVariable String id){

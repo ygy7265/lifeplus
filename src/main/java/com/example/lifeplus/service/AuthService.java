@@ -27,9 +27,9 @@ public class AuthService {
     private final TokenProvider tokenProvider;
 
     public MemberResponseDTO singup(MemberRequestDTO requestDTO){
-        if(memberRepository.findByEmail(requestDTO.getEmail()) != null){
-            throw  new RuntimeException("이미 가입되있는 유저입니다");
-        }
+//        if(memberRepository.findById(requestDTO.getEmail()) != null){
+//            throw  new RuntimeException("이미 가입되있는 유저입니다");
+//        }
         log.info(requestDTO);
         Member member = requestDTO.toMember(passwordEncoder);
         log.info(member.toString());

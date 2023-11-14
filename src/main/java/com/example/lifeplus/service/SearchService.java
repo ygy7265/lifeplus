@@ -16,20 +16,23 @@ import java.util.List;
 @Service
 public class SearchService {
 
-    private static String SEARCH_URL ="https://keyzard.org/realtimekeyword";
-    
+    //private static String SEARCH_URL ="https://keyzard.org/realtimekeyword";
+    private static String SEARCH_URL ="https://www.donga.com/news/Entertainment/List?ymd=20231114&m=";
+
     @PostConstruct
     public List<SearchDTO> getNewList() throws IOException{
         List<SearchDTO> newList = new ArrayList<>();
 
-        Document document = Jsoup.connect(SEARCH_URL).get();
+        Document document = Jsoup.connect(SEARCH_URL)
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
+                .get();
 
-        Elements contents = document.select(".table tbody tr");
+        Elements contents = document.select(".articleList");
 
         for(Element content : contents){
             SearchDTO news = SearchDTO.builder()
-                    .title(content.select("td a").text())
-                    .url(content.select("a").attr("abs:href"))
+                    .title(content.select(".rightList > .tit > a").text())
+                    .url(content.select(".rightList > .tit > a").attr("abs:href"))
                     .build();
 
             newList.add(news);

@@ -102,7 +102,7 @@ function Weather(){
                 <li id="weatheritem">
                     <span>습도: {itemcopy['REH']}%</span>
                     <span>강수확률: {itemcopy['POP']} %</span>
-                    <span>풍속: {itemcopy['WSD']}m/s</span>
+                    <span>기온: {itemcopy['TMP']}C</span>
                 </li>
             </ul>
 

@@ -49,8 +49,9 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-/*
-def frontendDir = "$projectDir/src/main/lifeplus"
+
+
+/*def frontendDir = "$projectDir/src/main/lifeplus"
 
 sourceSets {
     main {
@@ -89,5 +90,4 @@ task copyReactBuildFiles(type: Copy) {
     dependsOn "buildReact"
     from "$frontendDir/build"
     into "$projectDir/src/main/resources/static"
-}
-*/
+}*/

@@ -21,10 +21,14 @@ public class CalendarService {
 
     private final CalendarRepository calendarRepository;
 
-    public void addCalendar(CalendarDTO calendarDTO){
+    @Transactional
+    public List<CalendarDTO> addCalendar(CalendarDTO calendarDTO){
 
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
         calendarRepository.save(calendar);
+
+        List<CalendarDTO> responseDTO = selectCalendar(calendarDTO);
+        return responseDTO;
     }
 
     public void deleteCalendar(CalendarDTO calendarDTO){

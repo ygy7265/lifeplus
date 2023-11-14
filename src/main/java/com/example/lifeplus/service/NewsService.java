@@ -22,7 +22,9 @@ public class NewsService {
     public List<NewsDTO> getNewList() throws IOException{
         List<NewsDTO> newList = new ArrayList<>();
 
-        Document document = Jsoup.connect(News_URL).get();
+        Document document = Jsoup.connect(News_URL)
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
+                .get();
 
         Elements contents = document.select(".articleList ");
         List<Element> contentss = new ArrayList<>();
