@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Log4j2
@@ -16,9 +18,13 @@ public class CalendarController {
     private final CalendarService calendarService;
     @PostMapping("/addCalendar")
     public List<CalendarDTO> addCalendar(@RequestBody CalendarDTO calendarDTO){
+        String datetime = calendarDTO.getDate()+"T"+calendarDTO.getTime();
+        LocalDateTime localDateTime = LocalDateTime.parse(datetime, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        calendarDTO.setDatetime(localDateTime);
+        log.info(calendarDTO.getTime());
         List<CalendarDTO> responsDTO = calendarService.addCalendar(calendarDTO);
 
-        log.info(responsDTO);
         return responsDTO;
     }
     @DeleteMapping("/deleteCalendar/{id}")

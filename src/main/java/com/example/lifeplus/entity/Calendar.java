@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +28,7 @@ public class Calendar {
 
     private String date;
     private String time;
+    private LocalDateTime datetime;
 
     private String email;
 
@@ -36,6 +39,7 @@ public class Calendar {
                 .content(calendar.getContent())
                 .email(calendar.getEmail())
                 .time(calendar.getTime())
+                .datetime(calendar.getDatetime())
                 .date(calendar.getDate())
                 .build();
 

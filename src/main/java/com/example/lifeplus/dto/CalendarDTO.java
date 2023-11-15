@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -24,6 +26,7 @@ public class CalendarDTO {
     private String date;
 
     private String time;
+    private LocalDateTime datetime;
 
     private String email;
 
@@ -34,6 +37,7 @@ public class CalendarDTO {
                 .content(dto.getContent())
                 .date(dto.getDate())
                 .time(dto.getTime())
+                .datetime(dto.getDatetime())
                 .email(dto.getEmail())
                 .build();
 
