@@ -1,9 +1,11 @@
 package com.example.lifeplus.controller;
 
 import com.example.lifeplus.dto.CalendarDTO;
+import com.example.lifeplus.entity.Calendar;
 import com.example.lifeplus.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -28,15 +30,16 @@ public class CalendarController {
         return responsDTO;
     }
     @DeleteMapping("/deleteCalendar/{id}")
-    public void deleteCalendar(@PathVariable String id){
+    public ResponseEntity<String> deleteCalendar(@PathVariable String id){
         CalendarDTO dto = new CalendarDTO();
         dto.setId(id);
         log.info(dto.getId());
-        calendarService.deleteCalendar(dto);
+        return calendarService.deleteCalendar(dto);
     }
     @PutMapping("/updateCalendar")
-    public void updateCalendar(@RequestBody CalendarDTO calendarDTO){
-        calendarService.updateCalendar(calendarDTO);
+    public ResponseEntity<CalendarDTO> updateCalendar(@RequestBody CalendarDTO calendarDTO){
+
+        return ResponseEntity.ok(calendarService.updateCalendar(calendarDTO));
     }
 
     @GetMapping("/selectCalendar/{email}")

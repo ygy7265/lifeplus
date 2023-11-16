@@ -16,6 +16,7 @@ public class WeatherController {
 
     @GetMapping("/weatherAPI")
     public String weatherAPI(@ModelAttribute WeatherDTO dto){
+
         String weatherData = service.WeatherData(dto);
 
         return weatherData;

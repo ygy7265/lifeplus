@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("member")
 public class Member {
 
+    @Id
+    private String id;
     private String email;
     private String password;
     private String name;

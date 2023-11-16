@@ -59,6 +59,7 @@ function Weather(){
                 });
                 const data = response.data;
                 const body = data.response.body;
+
                 if(body != null){
                     const items = body.items.item;
                     setItemCopy((prevItemCopy) => {
@@ -87,7 +88,6 @@ function Weather(){
 
         fetchData();
     }, [latitude, longitude]);
-
 
 
 

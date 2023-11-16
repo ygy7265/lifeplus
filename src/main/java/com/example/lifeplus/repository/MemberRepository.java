@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends MongoRepository<Member,Long> {
+    boolean existsByEmail(String email);
+    boolean deleteById(String id);
     Optional<Member> findByEmail(String email);
 }

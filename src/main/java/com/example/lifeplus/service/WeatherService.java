@@ -1,6 +1,7 @@
 package com.example.lifeplus.service;
 
 import com.example.lifeplus.dto.WeatherDTO;
+import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+@Log4j2
 @Service
 public class WeatherService {
 
     public String WeatherData(WeatherDTO wDTO){
+        log.info(wDTO.getX());
+        log.info(wDTO.getY());
+        log.info(wDTO.getDate());
         StringBuffer result = new StringBuffer();
         String jsonPrintString = null;
         try {

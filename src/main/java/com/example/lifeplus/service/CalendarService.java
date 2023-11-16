@@ -7,6 +7,9 @@ import com.example.lifeplus.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +34,23 @@ public class CalendarService {
         return responseDTO;
     }
 
-    public void deleteCalendar(CalendarDTO calendarDTO){
+    public ResponseEntity<String> deleteCalendar(CalendarDTO calendarDTO){
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
         log.info(calendar.getId());
-        calendarRepository.deleteById(calendar.getId());
+
+        if(calendarRepository.existsById(calendar.getId())){
+            calendarRepository.deleteById(calendar.getId());
+            return ResponseEntity.ok("삭제성공!");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제실패,아이디를 찾을수없습니다.");
+        }
+
+
     }
 
-    public void updateCalendar(CalendarDTO calendarDTO){
+    public CalendarDTO updateCalendar(CalendarDTO calendarDTO){
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
-        calendarRepository.save(calendar);
+       return Calendar.toDTO(calendarRepository.save(calendar));
     }
 
     public List<CalendarDTO> selectCalendar(CalendarDTO calendarDTO){
