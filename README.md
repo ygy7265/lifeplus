@@ -1,6 +1,6 @@
 # LifePlus 프로젝트
 
-![프로젝트 스크린샷]![image](https://github.com/ygy7265/lifeplus/assets/48234811/43b0b5e7-e6a0-4c3f-abfa-15b63c0fb69c)
+[프로젝트 스크린샷]![image](https://github.com/ygy7265/lifeplus/assets/48234811/43b0b5e7-e6a0-4c3f-abfa-15b63c0fb69c)
 
 
 
