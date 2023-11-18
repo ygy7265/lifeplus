@@ -1,6 +1,7 @@
 # LotteON 쇼핑몰 개발 프로젝트
 
-![프로젝트 스크린샷](https://github.com/ygy7265/LottON/assets/48234811/d29ecd2b-94e2-4cfe-8767-dd1be7b3f328)
+![프로젝트 스크린샷](https://github.com/ygy7265/lifeplus/assets/48234811/a8fb1bef-cd84-4bdf-8fc5-7cb35494f5d8)
+
 
 ## 프로젝트 소개
 롯데 e-커머스 'LOTTE ON' 쇼핑몰을 개발하는 프로젝트입니다.
