@@ -26,17 +26,33 @@
 - logback-core-1.4.4.jar
 - slf4j-api-2.0.3.jar
 - modelmapper.3.1.1.jar
-
-## 협업 도구
-- Slack
+- jsoup.1.15.3.jar
+- mockito-core.3.+.jar
 
 ## 사용기술
+### Frontend
 
-- Frontend: HTML, CSS, JavaScript,React
-- Backend: Java (Spring Boot), JPA (Java Persistence API)
-- Database: MongoDB
-- Version Control: Git
-  
+- HTML
+- CSS
+- JavaScript
+- React
+- Redux 
+- styled-components
+
+### Backend
+
+- Java (Spring Boot)
+- JPA (Java Persistence API)
+- Crawling
+- OpenAPI
+
+### Database
+
+- MongoDB
+
+### Version Control
+- Git
+
 ### 보안
 
 - Spring Security를 통한 사용자 인증 및 권한 부여 구현
