@@ -8,28 +8,32 @@ import Modal from "../CloseModal";
 import ListModal from "../ListModal";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {calendarAdd,removeItem,calendarPush} from "../../store";
+import {calendarAdd, removeItem, calendarPush} from "../../store";
 
-function Calendar({ onDateClick }) {
+function Calendar({onDateClick}) {
     const [data, setData] = useState([]);
     const [signup, setSignup] = useState(false);
-    const [listStatus,setListStatus] = useState(false);
-    let tokenEmail = useSelector(state => {return state.userEmail.userEmail});
-    let calData = useSelector(state => {return state.calendar[0]});
+    const [listStatus, setListStatus] = useState(false);
+    let tokenEmail = useSelector(state => {
+        return state.userEmail.userEmail
+    });
+    let calData = useSelector(state => {
+        return state.calendar[0]
+    });
     let dispatch = useDispatch();
-    const handleListStatus = () =>  {
+    const handleListStatus = () => {
         setListStatus(!listStatus);
     }
 
 
     useEffect(() => {
-        if(tokenEmail != null){
+        if (tokenEmail != null) {
             const fetchData = async () => {
                 try {
                     const response = await axios.get(`/selectCalendar/${tokenEmail}`);
                     const data = response.data;
                     dispatch(calendarAdd(data));
-                     setData(data);
+                    setData(data);
                     console.log(JSON.stringify(calData));
                 } catch (error) {
                     console.error("Error during axios request:", error);
@@ -41,10 +45,12 @@ function Calendar({ onDateClick }) {
 
 
     }, []);
+
     function handleDateClick(info) {
         alert(`클릭한 날짜: ${info.dateStr}`);
         setSignup(!signup);
     }
+
     function handleEventClick(info) {
         // alert(`클릭한 이벤트: ${info.event.title}`);
         // alert(`클릭한 이벤트: ${info.event.extendedProps.content}`);
@@ -60,9 +66,9 @@ function Calendar({ onDateClick }) {
                 initialView={'dayGridMonth'}
                 headerToolbar={
                     {
-                        start: 'today',
+                        start : 'today',
                         center: 'title',
-                        end: 'prev,next'
+                        end   : 'prev,next'
                     }
                 }
                 dateClick={handleDateClick}
@@ -73,7 +79,7 @@ function Calendar({ onDateClick }) {
             {listStatus && (
                 <ListModal closeModal={() => setListStatus(!listStatus)}>
                     <div>
-                        <ListData calData = {calData}/>
+                        <ListData calData={calData}/>
                     </div>
                 </ListModal>
             )}
@@ -82,31 +88,36 @@ function Calendar({ onDateClick }) {
         </div>
     );
 }
-function AddData({modify,calId,calTitle,calContent,calDateValue,calTime}){
-    let calData = useSelector(state => {return state.calendar[0]});
+
+function AddData({modify, calId, calTitle, calContent, calDateValue, calTime}) {
+    let calData = useSelector(state => {
+        return state.calendar[0]
+    });
     let dispatch = useDispatch();
     var calendarForm = '';
-    console.log("id"+calId);
-    console.log("calTitle"+calTitle);
-    console.log("calContent"+calContent);
-    console.log("calDateValue"+JSON.stringify(calDateValue));
-    console.log("calTime"+calId);
+    console.log("id" + calId);
+    console.log("calTitle" + calTitle);
+    console.log("calContent" + calContent);
+    console.log("calDateValue" + JSON.stringify(calDateValue));
+    console.log("calTime" + calId);
     const [calTitleValue, setCalTitle] = useState('');
     const [calContentValue, setCalContent] = useState('');
     const [dateValue, setDateTimeValue] = useState('');
     const [timeValue, setTimeValue] = useState('');
 
 
-    let tokenEmail = useSelector(state => {return state.userEmail.userEmail});
-    const handleClick = (e) =>{
+    let tokenEmail = useSelector(state => {
+        return state.userEmail.userEmail
+    });
+    const handleClick = (e) => {
         e.preventDefault();
         var inputFields = document.querySelectorAll('.calendarinput');
         var allInputsFilled = Array.from(inputFields).every(function (input) {
             return input.value.trim() !== '';
         });
-        if(allInputsFilled){
+        if (allInputsFilled) {
             axios.post("/addCalendar", calendarForm, {
-                headers: { "Content-Type": "application/json" }
+                headers: {"Content-Type": "application/json"}
             })
                 .then((res) => {
                     // 성공 시 처리
@@ -119,12 +130,12 @@ function AddData({modify,calId,calTitle,calContent,calDateValue,calTime}){
                     console.log(error);
                     alert("일정등록을 실패했습니다. 다시 한번 확인해 주세요.");
                 });
-        }else{
+        } else {
             alert('모든 입력 필드에 값을 입력하세요.');
         }
     }
     useEffect(() => {
-        if(modify){
+        if (modify) {
             setCalTitle(calTitle);
             setCalContent(calContent);
             setDateTimeValue(calDateValue);
@@ -139,41 +150,45 @@ function AddData({modify,calId,calTitle,calContent,calDateValue,calTime}){
         };
     }, []);
 
-    const hanbleDateTimeChange = (event) =>  {
+    const hanbleDateTimeChange = (event) => {
         const newValue = event.target.value;
         setDateTimeValue(newValue);
     }
-    const hanbleTimeChange = (event) =>  {
+    const hanbleTimeChange = (event) => {
         const newTimeValue = event.target.value;
         setTimeValue(newTimeValue)
     }
-    const hanbleTitleChange = (event) =>  {
+    const hanbleTitleChange = (event) => {
         const newTitleValue = event.target.value;
         setCalTitle(newTitleValue);
     }
-    const hanbleContentChange = (event) =>  {
+    const hanbleContentChange = (event) => {
         const newContentValue = event.target.value;
         setCalContent(newContentValue);
     }
     return (
         modify ? (
             <div className="signup-container">
-                <h3 style={{ borderBottom: '1px solid black', paddingBottom: '10px' }}>일정수정</h3>
+                <h3 style={{borderBottom: '1px solid black', paddingBottom: '10px'}}>일정수정</h3>
                 <form id='calendarForm'>
                     <input type='hidden' name='id' value={calId}/>
                     <input type='hidden' name='email' value={tokenEmail}/>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
-                        <input type="text"  className='calendarinput' id="calTitle" name="title" value={calTitleValue} onChange={hanbleTitleChange}/>
+                        <input type="text" className='calendarinput' id="calTitle" name="title" value={calTitleValue}
+                               onChange={hanbleTitleChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="text">Date</label>
-                        <input type="date" className='calendarinput' id="calDate" name="date" value={dateValue} onChange={hanbleDateTimeChange}/>
-                        <input type="time" className='calendarinput' id="calTime" name="time" value={timeValue} onChange={hanbleTimeChange}/>
+                        <input type="date" className='calendarinput' id="calDate" name="date" value={dateValue}
+                               onChange={hanbleDateTimeChange}/>
+                        <input type="time" className='calendarinput' id="calTime" name="time" value={timeValue}
+                               onChange={hanbleTimeChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="text">Content</label>
-                        <input type="text" className='calendarinput' id="calContent" name="content" value={calContentValue} onChange={hanbleContentChange}/>
+                        <input type="text" className='calendarinput' id="calContent" name="content"
+                               value={calContentValue} onChange={hanbleContentChange}/>
                     </div>
                     <button type="submit" className='signup-button btnAddData'>
                         일정수정
@@ -182,21 +197,23 @@ function AddData({modify,calId,calTitle,calContent,calDateValue,calTime}){
             </div>
         ) : (
             <div className="signup-container">
-                <h3 style={{ borderBottom: '1px solid black', paddingBottom: '10px' }}>일정등록</h3>
+                <h3 style={{borderBottom: '1px solid black', paddingBottom: '10px'}}>일정등록</h3>
                 <form id='calendarForm'>
-                    <input type='hidden' name='email'value={tokenEmail}/>
+                    <input type='hidden' name='email' value={tokenEmail}/>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
-                        <input type="text"  className='calendarinput' id="calTitle" name="title" />
+                        <input type="text" className='calendarinput' id="calTitle" name="title"/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="text">Date</label>
-                        <input type="date" className='calendarinput' id="calDate" name="date" onChange={hanbleDateTimeChange}/>
-                        <input type="time" className='calendarinput' id="calTime" name="time"  onChange={hanbleTimeChange}/>
+                        <input type="date" className='calendarinput' id="calDate" name="date"
+                               onChange={hanbleDateTimeChange}/>
+                        <input type="time" className='calendarinput' id="calTime" name="time"
+                               onChange={hanbleTimeChange}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="text">Content</label>
-                        <input type="text" className='calendarinput' id="calContent" name="content" />
+                        <input type="text" className='calendarinput' id="calContent" name="content"/>
                     </div>
                     <button type="submit" className='signup-button btnAddData'>
                         일정등록
@@ -207,22 +224,25 @@ function AddData({modify,calId,calTitle,calContent,calDateValue,calTime}){
     );
 
 }
-function ListData({calData}){
+
+function ListData({calData}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalModify, setModalModify] = useState(false);
-    const [calId,setCalId] = useState('');
-    const [calTitle,setCalTitle] = useState('');
-    const [calContent,setCalContent] = useState('');
-    const [calDateVal,setCalDateVal] = useState('');
-    const [calTime,setCalTime] = useState('');
+    const [calId, setCalId] = useState('');
+    const [calTitle, setCalTitle] = useState('');
+    const [calContent, setCalContent] = useState('');
+    const [calDateVal, setCalDateVal] = useState('');
+    const [calTime, setCalTime] = useState('');
     let dispatch = useDispatch();
-    function handleModal(){
+
+    function handleModal() {
         setModalIsOpen(!modalIsOpen);
     }
-    function deleteItem(result){
+
+    function deleteItem(result) {
         let resultId = result;
         axios.delete(`/deleteCalendar/${resultId}`, {
-            headers: { "Content-Type": "application/json" }
+            headers: {"Content-Type": "application/json"}
         })
             .then((res) => {
                 // 성공 시 처리
@@ -235,58 +255,72 @@ function ListData({calData}){
                 alert("일정삭제를 실패했습니다. 다시 한번 확인해 주세요.");
             });
     }
+
     return (
         <div className="listData-container">
-            <h3 style={{ borderBottom: '1px solid black', paddingBottom: '10px' }}>일정관리</h3>
+            <h3 style={{borderBottom: '1px solid black', paddingBottom: '10px'}}>일정관리</h3>
 
-                <table className='list-table'>
-                    <tr>
-                        <th>제목</th>
-                        <th>내용</th>
-                        <th colSpan='3'>시간</th>
-                    </tr>
-                    { calData == null ? <tr><td colSpan='3'>일정없음</td></tr>:
-                        calData.map((result,index) => (
-                    <tr>
-                        <td>{result.title}</td>
-                        <td>{result.content}</td>
-                        <td>{result.date}</td>
-                        <td><button className='btnCal' onClick={()=>{
-                            setModalIsOpen(prevIsOpen => !prevIsOpen);
-                            setModalModify(true);
-                            setCalId(result.id)
-                            setCalTitle(result.title)
-                            setCalContent(result.content)
-                            setCalDateVal(result.date)
-                            setCalTime(result.time)
-                        }}>수정</button></td>
-                        <td>
-                            <button
-                                className='btnCal'
-                                onClick={() => {
-                                    deleteItem(result.id)
-                                }}
-                            >
-                                삭제
-                            </button>
-                        </td>
-                    </tr>
+            <table className='list-table'>
+                <tr>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th colSpan='3'>시간</th>
+                </tr>
+                {calData == null ? <tr>
+                        <td colSpan='3'>일정없음</td>
+                    </tr> :
+                    calData.map((result, index) => (
+                        <tr>
+                            <td>{result.title}</td>
+                            <td>{result.content}</td>
+                            <td>{result.datetime}</td>
+                            <td>
+                                <button className='btnCal' onClick={() => {
+                                    setModalIsOpen(prevIsOpen => !prevIsOpen);
+                                    setModalModify(true);
+                                    setCalId(result.id)
+                                    setCalTitle(result.title)
+                                    setCalContent(result.content)
+                                    setCalDateVal(result.date)
+                                    setCalTime(result.time)
+                                }}>수정
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    className='btnCal'
+                                    onClick={() => {
+                                        deleteItem(result.id)
+                                    }}
+                                >
+                                    삭제
+                                </button>
+                            </td>
+                        </tr>
                     ))}
-                    <button className='changeCalendar' onClick={() => { handleModal(); setModalModify(false); }}>일정등록</button>
+                <button className='changeCalendar' onClick={() => {
+                    handleModal();
+                    setModalModify(false);
+                }}>일정등록
+                </button>
 
-                </table>
+            </table>
 
 
-                {modalIsOpen && (
-                    <Modal closeModal={() => {setModalIsOpen(!modalIsOpen);}}>
-                        <div>
-                            <AddData modify={modalModify} calId={calId} calTitle={calTitle} calContent={calContent} calDateValue={calDateVal} calTime={calTime}/>
-                        </div>
-                    </Modal>
-                )}
+            {modalIsOpen && (
+                <Modal closeModal={() => {
+                    setModalIsOpen(!modalIsOpen);
+                }}>
+                    <div>
+                        <AddData modify={modalModify} calId={calId} calTitle={calTitle} calContent={calContent}
+                                 calDateValue={calDateVal} calTime={calTime}/>
+                    </div>
+                </Modal>
+            )}
 
 
         </div>
     );
 }
+
 export default Calendar;

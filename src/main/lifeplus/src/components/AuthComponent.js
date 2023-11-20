@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios";
 
-const AuthComponent = ({ signupForm }) => {
+const AuthComponent = ({signupForm}) => {
     const [accessToken, setAccessToken] = useState('');
     const [refreshToken, setRefreshToken] = useState('');
     const [tokenExpiresIn, setTokenExpiresIn] = useState(null);
@@ -51,7 +51,7 @@ const AuthComponent = ({ signupForm }) => {
         setRefreshTokenExpiresIn(null);
     };
 
-    return { accessToken, refreshToken, tokenExpiresIn, refreshTokenExpiresIn, refreshTokens, logout };
+    return {accessToken, refreshToken, tokenExpiresIn, refreshTokenExpiresIn, refreshTokens, logout};
 };
 
 export default AuthComponent;

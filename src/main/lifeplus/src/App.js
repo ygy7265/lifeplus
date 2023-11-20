@@ -1,21 +1,22 @@
 /* eslint-disable*/
 
 import React, {useEffect, useMemo, useState} from 'react';
-import { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from './theme/theme';
+import {ThemeProvider} from 'styled-components';
+import {darkTheme, lightTheme} from './theme/theme';
 import Home from './components/Home';
 import {GlobalStyle} from "./theme/GlobalStyle";
 import './App.css';
 import './theme/neon.css';
 import ImageSlider from "./components/ImageSilder/ImageSlider";
-import { useGeolocation,dfs_xy_conv} from './data/ChangeWeatherXY'
+import {useGeolocation, dfs_xy_conv} from './data/ChangeWeatherXY'
 import {VIDEOS} from "./data/data";
 import HitSearch from "./components/HitSearch";
 import Calandar from "./components/Calandar/Calandar";
 import News from "./components/News";
 import axios from "axios";
 import {useSelector} from "react-redux";
-import {Routes,Route,Link} from "react-router-dom";
+import {Routes, Route, Link} from "react-router-dom";
+
 function App() {
     const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -26,18 +27,18 @@ function App() {
 
     return (
         <>
-            <ThemeProvider theme={isDarkMode ?  darkTheme : lightTheme}>
-                <GlobalStyle />
-                <Home isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+            <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                <GlobalStyle/>
+                <Home isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode}/>
                 <div className='main'>
                     <HitSearch isDarkMode={isDarkMode}/>
                     <div className='mainContainer'>
-                    <div className='container'>
-                        <div>
-                            <img src='/images/youtubeText.png'/>
+                        <div className='container'>
+                            <div>
+                                <img src='/images/youtubeText.png'/>
+                            </div>
+                            <ImageSlider images={VIDEOS}/>
                         </div>
-                        <ImageSlider images={VIDEOS} />
-                    </div>
                         <News/>
                         <div className='mainCalendar'>
                             <Calandar/>
@@ -60,8 +61,6 @@ function App() {
         </>
     );
 }
-
-
 
 
 export default App;

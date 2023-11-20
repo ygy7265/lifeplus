@@ -1,31 +1,31 @@
 export const IMAGES = [
     {
-        id: 1,
+        id : 1,
         src: "https://github.com/holdmypotion/react-3d-image-slider/blob/master/public/images/image.png?raw=true",
         alt: "Placeholder image",
     },
     {
-        id: 2,
+        id : 2,
         src: "/images/image.png",
         alt: "Placeholder image",
     },
     {
-        id: 3,
+        id : 3,
         src: "/images/image.png",
         alt: "Placeholder image",
     },
     {
-        id: 4,
+        id : 4,
         src: "/images/image.png",
         alt: "Placeholder image",
     },
     {
-        id: 5,
+        id : 5,
         src: "/images/image.png",
         alt: "Placeholder image",
     },
     {
-        id: 6,
+        id : 6,
         src: "/images/image.png",
         alt: "Placeholder image",
     },
@@ -33,32 +33,32 @@ export const IMAGES = [
 
 export const LARGE_IMAGES = [
     {
-        id: 1,
+        id : 1,
         src: "/images/large_image.png",
         alt: "Placeholder image",
     },
     {
-        id: 2,
+        id : 2,
         src: "/images/large_image.png",
         alt: "Placeholder image",
     },
     {
-        id: 3,
+        id : 3,
         src: "/images/large_image.png",
         alt: "Placeholder image",
     },
     {
-        id: 4,
+        id : 4,
         src: "/images/large_image.png",
         alt: "Placeholder image",
     },
     {
-        id: 5,
+        id : 5,
         src: "/images/large_image.png",
         alt: "Placeholder image",
     },
     {
-        id: 6,
+        id : 6,
         src: "/images/large_image.png",
         alt: "Placeholder image",
     },
@@ -66,7 +66,7 @@ export const LARGE_IMAGES = [
 
 export const VIDEOS = [
     {
-        id: 1,
+        id  : 1,
         code: (
             <iframe
                 title="vid1"
@@ -78,7 +78,7 @@ export const VIDEOS = [
         ),
     },
     {
-        id: 2,
+        id  : 2,
         code: (
             <iframe
                 title="vid2"
@@ -90,7 +90,7 @@ export const VIDEOS = [
         ),
     },
     {
-        id: 3,
+        id  : 3,
         code: (
             <iframe
                 title="vid3"
@@ -102,7 +102,7 @@ export const VIDEOS = [
         ),
     },
     {
-        id: 4,
+        id  : 4,
         code: (
             <iframe
                 title="vid4"

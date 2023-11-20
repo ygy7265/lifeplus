@@ -2,16 +2,17 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Weather from "./Weather";
-function HitSearch(props) {
-    const [fakeSearchResults,setSearchResult] = useState([]);
 
-    const [rest,Setrest] = useState(props);
+function HitSearch(props) {
+    const [fakeSearchResults, setSearchResult] = useState([]);
+
+    const [rest, Setrest] = useState(props);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('/search');
                 const data = response.data;
-                setSearchResult(data.slice(1,11));
+                setSearchResult(data.slice(1, 11));
             } catch (error) {
                 console.error("Error during axios request:", error);
             }
@@ -26,12 +27,13 @@ function HitSearch(props) {
 
     window.onload = function () {
         let i = 0;
+
         function textBold() {
             let ranks = document.querySelectorAll('.rank');
 
             // 클래스 제거
             if (i > 0) {
-                ranks[i-1].classList.remove('neon');
+                ranks[i - 1].classList.remove('neon');
 
             }
             if (i >= fakeSearchResults.length) {
@@ -50,7 +52,6 @@ function HitSearch(props) {
     }
 
 
-
     return (
 
         <div className='hotSearch'>
@@ -64,7 +65,7 @@ function HitSearch(props) {
                 </div>
                 {fakeSearchResults.map((result, index) => (
                     <a href={result.url} className='rank' key={index}>
-                        <h3> {index+1}. {result.title} </h3>
+                        <h3> {index + 1}. {result.title} </h3>
                         <span></span>
                         <span></span>
                         <span></span>

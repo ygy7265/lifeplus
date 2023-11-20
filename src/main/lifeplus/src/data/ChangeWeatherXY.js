@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 
 const RE = 6371.00877; // 지구 반경(km)
 const GRID = 5.0; // 격자 간격(km)
@@ -86,6 +86,6 @@ export function useGeolocation() {
         }
     }, []);
 
-    return { latitude, longitude };
+    return {latitude, longitude};
 }
 
