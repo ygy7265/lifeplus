@@ -52,7 +52,6 @@ tasks.named('test') {
 }
 
 
-
 def frontendDir = "$projectDir/src/main/lifeplus"
 
 sourceSets {

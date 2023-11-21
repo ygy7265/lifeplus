@@ -59,7 +59,7 @@ function Weather() {
                         x   : xy.x,
                         y   : xy.y,
                         date: dateFormat(),
-                        time: time-1
+                        time: time-2
                     }
                 });
                 const data = response.data;
@@ -103,9 +103,9 @@ function Weather() {
             </div>
             <ul>
                 <li id="weatheritem">
-                    <span>습도: 30%</span>
-                    <span>강수확률: 0 %</span>
-                    <span>기온: 5C</span>
+                    <span>습도: {itemcopy['REH']}%</span>
+                    <span>강수확률: {itemcopy['POP']} %</span>
+                    <span>기온: {itemcopy['TMP']}C</span>
                 </li>
             </ul>
 

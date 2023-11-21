@@ -1,8 +1,10 @@
 package com.example.lifeplus.controller;
 
 import com.example.lifeplus.dto.CalendarDTO;
+import com.example.lifeplus.dto.SmsResponseDTO;
 import com.example.lifeplus.entity.Calendar;
 import com.example.lifeplus.service.CalendarService;
+import com.example.lifeplus.service.ScheduledService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.context.properties.bind.BindResult;
@@ -23,7 +25,7 @@ import java.util.List;
 public class CalendarController {
 
     private final CalendarService calendarService;
-
+    private final ScheduledService scheduledService;
     @PostMapping("/addCalendar")
     public ResponseEntity<?> addCalendar(@Validated @RequestBody CalendarDTO calendarDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -75,5 +77,11 @@ public class CalendarController {
             // 리스트 조회 실패
             return new ResponseEntity<>(responseList, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/smsApi")
+    public SmsResponseDTO smsResponseDTO(){
+
+        return scheduledService.sendSms();
     }
 }
