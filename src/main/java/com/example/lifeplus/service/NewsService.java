@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,10 +18,10 @@ import java.util.List;
 @Service
 public class NewsService {
 
-    private static String News_URL ="https://www.donga.com/news/List";
-    
+    private static String News_URL = "https://www.donga.com/news/List";
+
     @PostConstruct
-    public List<NewsDTO> getNewList() throws IOException{
+    public ResponseEntity<?> getNewList() throws IOException {
         List<NewsDTO> newList = new ArrayList<>();
 
         Document document = Jsoup.connect(News_URL)
@@ -32,7 +34,7 @@ public class NewsService {
         if (contents.size() > limit) {
             contentss = contents.subList(0, limit); // 처음 10개의 요소만 선택
         }
-        for(Element content : contentss){
+        for (Element content : contentss) {
             NewsDTO news = NewsDTO.builder()
                     .image(content.select("a img").attr("abs:src"))
                     .title(content.select(".tit a").text())
@@ -42,10 +44,14 @@ public class NewsService {
 
             newList.add(news);
         }
+        if (newList != null && !newList.isEmpty()) {
+            return new ResponseEntity<>(newList, HttpStatus.OK);
+        } else {
+            // 리스트 조회 실패
+            return new ResponseEntity<>("찾을수없음", HttpStatus.NOT_FOUND);
+        }
 
-
-        return newList;
     }
 
-    
+
 }

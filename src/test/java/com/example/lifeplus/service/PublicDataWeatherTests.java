@@ -1,7 +1,8 @@
-package com.example.lifeplus;
+package com.example.lifeplus.service;
 
 import com.example.lifeplus.dto.WeatherDTO;
 import com.example.lifeplus.service.WeatherService;
+import org.bson.assertions.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -25,13 +26,18 @@ class PublicDataWeatherTests {
     @MethodSource("parameterizedComplicateWeatherApiTestParameter")
     @ParameterizedTest
     public void weatherAPI(int x,int y, String date){
+        //given
         WeatherService service = new WeatherService();
         WeatherDTO dto = new WeatherDTO();
         dto.setX(x);
         dto.setY(y);
         dto.setDate(date);
 
+        //when
         String weatherData = service.WeatherData(dto);
         System.out.println("Weather Data: " + weatherData);
+
+        //then
+        Assertions.assertNotNull(weatherData);
     }
 }

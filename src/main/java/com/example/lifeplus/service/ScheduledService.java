@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class ScheduledService {
 
     @Scheduled(fixedRate = 5000)
-    public void scheduled(){
-        System.out.println("Test");
+    public void scheduled() {
+
     }
 }

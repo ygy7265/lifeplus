@@ -4,6 +4,7 @@ import com.example.lifeplus.dto.WeatherDTO;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONObject;
 import org.json.XML;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedInputStream;
@@ -16,20 +17,23 @@ import java.net.URL;
 @Service
 public class WeatherService {
 
+    @Value("${shortweather-key}")
+    private String apiKey;
     public String WeatherData(WeatherDTO wDTO){
         log.info(wDTO.getX());
         log.info(wDTO.getY());
         log.info(wDTO.getDate());
+        log.info(wDTO.getTime());
         StringBuffer result = new StringBuffer();
         String jsonPrintString = null;
         try {
             String apiUrl = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?" +
-                    "serviceKey=5DbM%2Bixaa1TEWY1m9IHk4I28i2qjwOQi2dvdBPk4CFsK6owVcm4VX%2F9CQYhsz67zxv2LBGl9hIonupgOwQFCng%3D%3D" +
+                    "serviceKey="+ apiKey +
                     "&pageNo=1" +
                     "&numOfRows=30" +
                     "&dataType=XML" +
                     "&base_date="+wDTO.getDate()+
-                    "&base_time=0500" +
+                    "&base_time="+wDTO.getTime()+"00" +
                     "&nx="+wDTO.getX()+"&ny="+wDTO.getY();
             URL url = new URL(apiUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();

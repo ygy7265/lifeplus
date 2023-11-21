@@ -26,17 +26,17 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
-    public MemberResponseDTO singup(MemberRequestDTO requestDTO){
-        if(memberRepository.existsByEmail(requestDTO.getEmail())){
-            throw  new RuntimeException("이미 가입되있는 유저입니다");
-        }
+    public MemberResponseDTO singup(MemberRequestDTO requestDTO) {
+//        if(memberRepository.existsByEmail(requestDTO.getEmail())){
+//            throw  new RuntimeException("이미 가입되있는 유저입니다");
+//        }
         log.info(requestDTO);
         Member member = requestDTO.toMember(passwordEncoder);
         log.info(member.toString());
         return MemberResponseDTO.of(memberRepository.save(member));
     }
 
-    public TokenDTO login(MemberRequestDTO requestDTO){
+    public TokenDTO login(MemberRequestDTO requestDTO) {
         UsernamePasswordAuthenticationToken authenticationToken = requestDTO.toAuthentication();
 
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);

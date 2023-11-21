@@ -15,18 +15,19 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService{
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository.findByEmail(username)
                 .map(this::createUserDetails)
-                .orElseThrow(()-> new UsernameNotFoundException(username + "이 존재하지않습니다."));
+                .orElseThrow(() -> new UsernameNotFoundException(username + "이 존재하지않습니다."));
 
     }
 
-    private UserDetails createUserDetails(Member member){
+    private UserDetails createUserDetails(Member member) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAutnority().toString());
 
         return new User(

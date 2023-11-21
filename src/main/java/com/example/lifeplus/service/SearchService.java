@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,10 +19,10 @@ import java.util.List;
 public class SearchService {
 
     //private static String SEARCH_URL ="https://keyzard.org/realtimekeyword";
-    private static String SEARCH_URL ="https://www.donga.com/news/Entertainment/List?ymd=20231114&m=";
+    private static String SEARCH_URL = "https://www.donga.com/news/Entertainment/List?ymd=20231114&m=";
 
     @PostConstruct
-    public List<SearchDTO> getNewList() throws IOException{
+    public ResponseEntity<?> getNewList() throws IOException {
         List<SearchDTO> newList = new ArrayList<>();
 
         Document document = Jsoup.connect(SEARCH_URL)
@@ -29,7 +31,7 @@ public class SearchService {
 
         Elements contents = document.select(".articleList");
 
-        for(Element content : contents){
+        for (Element content : contents) {
             SearchDTO news = SearchDTO.builder()
                     .title(content.select(".rightList > .tit > a").text())
                     .url(content.select(".rightList > .tit > a").attr("abs:href"))
@@ -37,10 +39,14 @@ public class SearchService {
 
             newList.add(news);
         }
+        if (newList != null && !newList.isEmpty()) {
+            return new ResponseEntity<>(newList, HttpStatus.OK);
+        } else {
+            // 리스트 조회 실패
+            return new ResponseEntity<>("찾을수없음", HttpStatus.NOT_FOUND);
+        }
 
-
-        return newList;
     }
 
-    
+
 }

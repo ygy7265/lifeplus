@@ -103,9 +103,9 @@ function Weather() {
             </div>
             <ul>
                 <li id="weatheritem">
-                    <span>습도: {itemcopy['REH']}%</span>
-                    <span>강수확률: {itemcopy['POP']} %</span>
-                    <span>기온: {itemcopy['TMP']}C</span>
+                    <span>습도: 30%</span>
+                    <span>강수확률: 0 %</span>
+                    <span>기온: 5C</span>
                 </li>
             </ul>
 

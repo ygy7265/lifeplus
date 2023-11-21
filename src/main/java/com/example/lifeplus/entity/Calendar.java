@@ -1,10 +1,7 @@
 package com.example.lifeplus.entity;
 
 import com.example.lifeplus.dto.CalendarDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,10 +10,10 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Builder
 @Document("calender")
 public class Calendar {
-
 
 
     @Id
@@ -32,7 +29,7 @@ public class Calendar {
 
     private String email;
 
-    public static CalendarDTO toDTO(Calendar calendar){
+    public static CalendarDTO toDTO(Calendar calendar) {
         CalendarDTO calendarDTO = CalendarDTO.builder()
                 .id(calendar.getId())
                 .title(calendar.getTitle())

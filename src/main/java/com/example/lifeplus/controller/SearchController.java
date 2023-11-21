@@ -5,6 +5,7 @@ import com.example.lifeplus.dto.SearchDTO;
 import com.example.lifeplus.service.NewsService;
 import com.example.lifeplus.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,10 +19,10 @@ public class SearchController {
     private SearchService searchService;
 
     @GetMapping("/search")
-    public List<SearchDTO> news() throws Exception{
+    public ResponseEntity<?> news() throws Exception {
 
-       List<SearchDTO> searchdto = searchService.getNewList();
+        ResponseEntity<?> searchdto = searchService.getNewList();
 
-        return  searchdto;
+        return searchdto;
     }
 }

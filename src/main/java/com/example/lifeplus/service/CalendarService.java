@@ -25,7 +25,7 @@ public class CalendarService {
     private final CalendarRepository calendarRepository;
 
     @Transactional
-    public List<CalendarDTO> addCalendar(CalendarDTO calendarDTO){
+    public List<CalendarDTO> addCalendar(CalendarDTO calendarDTO) {
 
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
         calendarRepository.save(calendar);
@@ -34,33 +34,39 @@ public class CalendarService {
         return responseDTO;
     }
 
-    public ResponseEntity<String> deleteCalendar(CalendarDTO calendarDTO){
+    public ResponseEntity<String> deleteCalendar(CalendarDTO calendarDTO) {
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
         log.info(calendar.getId());
 
-        if(calendarRepository.existsById(calendar.getId())){
+        if (calendarRepository.existsById(calendar.getId())) {
             calendarRepository.deleteById(calendar.getId());
             return ResponseEntity.ok("삭제성공!");
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제실패,아이디를 찾을수없습니다.");
         }
 
 
     }
 
-    public CalendarDTO updateCalendar(CalendarDTO calendarDTO){
+    public CalendarDTO updateCalendar(CalendarDTO calendarDTO) {
+        log.info(calendarDTO.getId() + "getid");
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
-       return Calendar.toDTO(calendarRepository.save(calendar));
+        Calendar savedCalendar = calendarRepository.save(calendar);
+
+        if (savedCalendar != null) {
+            return Calendar.toDTO(savedCalendar);
+        } else {
+            return null;
+        }
     }
 
-    public List<CalendarDTO> selectCalendar(CalendarDTO calendarDTO){
+
+    public List<CalendarDTO> selectCalendar(CalendarDTO calendarDTO) {
 
         ModelMapper modelMapper = new ModelMapper();
         Calendar calendar = calendarDTO.toCalendar(calendarDTO);
 
-        List<CalendarDTO> responseDTO  = calendarRepository.findByEmail(calendar.getEmail()).stream().map(entity-> modelMapper.map(entity,CalendarDTO.class)).toList();
-
-
+        List<CalendarDTO> responseDTO = calendarRepository.findByEmail(calendar.getEmail()).stream().map(entity -> modelMapper.map(entity, CalendarDTO.class)).toList();
         return responseDTO;
     }
 }

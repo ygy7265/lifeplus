@@ -1,4 +1,4 @@
-package com.example.lifeplus;
+package com.example.lifeplus.service;
 
 
 import net.nurigo.java_sdk.api.Message;
@@ -12,10 +12,14 @@ public class SendSMSTests {
 
     @Test
     public void sendSms(){
-        String api_key = "NCSVDYI5XR1QCZXJ";
-        String api_secret = "NZRDTRDJKUGJBOOCWB0AWGIINXJI40UN";
+        String api_key = "N";
+        String api_secret = "N";
 
         Message coolsms = new Message(api_key,api_secret);
+        JSONObject MockitoResponse = new JSONObject();
+        MockitoResponse.put("result_code","Success");
+
+
         HashMap<String,String> params = new HashMap<String,String>();
 
         params.put("to","LifePlus");

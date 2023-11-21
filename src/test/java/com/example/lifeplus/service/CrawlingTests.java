@@ -1,4 +1,4 @@
-package com.example.lifeplus;
+package com.example.lifeplus.service;
 
 import com.example.lifeplus.dto.NewsDTO;
 import com.example.lifeplus.dto.SearchDTO;

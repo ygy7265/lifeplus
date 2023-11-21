@@ -17,15 +17,17 @@ public class Member {
     private String name;
     private Autnority autnority;
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.name = name;
     }
-    public void setPassword(String password){
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
     @Builder
-    public Member(Long id, String email,String password,String name,Autnority autnority){
+    public Member(String id, String email, String password, String name, Autnority autnority) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;

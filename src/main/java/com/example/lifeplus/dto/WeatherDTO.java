@@ -6,5 +6,6 @@ import lombok.Data;
 public class WeatherDTO {
         private int x;
         private int y;
+        private int time;
         private String date;
 }
